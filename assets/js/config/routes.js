@@ -19,11 +19,15 @@ module.exports = function (app) {
         controller: 'NewCtrl',
         templateUrl: 'new.html'
       })
-      .when('/:id', {
+      .when('/:tag/', {
+        controller: 'TagCtrl',
+        templateUrl: 'list.html'
+      })
+      .when('/:tag/:id', {
         controller: 'PostCtrl',
         templateUrl: 'post.html'
       })
-      .when('/:id/edit', {
+      .when('/:tag/:id/edit', {
         controller: 'NewCtrl',
         templateUrl: 'new.html'
       });

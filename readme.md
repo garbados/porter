@@ -37,12 +37,27 @@ After deploying, the resultant app will live at
 
     DATABASE/_design/app/_rewrite
 
+## Objects
+
+There is only one object: the Post. It looks like this:
+
+    {
+      _id: 'how-i-made-a-million-dollars',
+      type: 'porter', // always 'porter'; used for portability
+      published: true,
+      title: 'How I Made a Million Dollars',
+      text: 'Today was my first day at the Fed managing the presses, and...',
+      tags: ['blog', 'money', 'fed', 'silly'],
+      author: 'Yours Truly'
+    }
+
+For the sake of ease, Porter tries to autofill these values where possible. For example, you can enter whatever for `author`, but a dropdown will let you choose from past authors.
+
 ## Roadmap
 
 In approximate order of priority.
 
 * Social: Presently, Porter is just a diary. We'll be adding that whole "social-without-servers" thing momentarily.
 * Sync with a server: replicate data to and from CouchDB or [Cloudant][cloudant] instances.
-* Tagging!
-* Categories!
+* CMS-like fields and data: To be frank, I want to unseat Wordpress.
 * Better Search: The current search is pretty rudimentary. Using [Pouch-Search][pouchsearch], we can give it Lucene-style querying.

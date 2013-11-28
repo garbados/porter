@@ -12,7 +12,91 @@ module.exports = function (app) {
         return post;
       }
 
+      // if the id changes, 
+      // ensure that id isn't already taken
+      // and remove the old post
+      function modify_id (post, done) {
+        if (post.id !== post._id) {
+          Pouch.get(post.id, function (err, res) {
+            if (err) {
+              if (err.status === 404) {
+                Pouch.remove(post, function (err) {
+                  if (err) {
+                    done(err);
+                  } else {
+                    post._id = post.id;
+                    delete post.id;
+                    done(null, post);
+                  }
+                });
+              } else {
+                done(err);
+              }
+            } else {
+              done(res);
+            }
+          });
+        } else {
+          done(null, post);
+        }
+      }
+
+      function dedupe (array, field) {
+        var keys = {},
+            results = [];
+
+        array.forEach(function (obj) {
+          if (field) {
+            if (obj[field] in keys) {
+              // do nothing
+            } else {
+              keys[obj[field]] = true;
+              results.push(obj);
+            }
+          } else {
+            if (obj in keys) {
+              // do nothing
+            } else {
+              keys[obj] = true;
+              results.push(obj);
+            }
+          }
+        });
+
+        return results;
+      }
+
       return {
+        tags: function (tag, done) {
+          Pouch.query({
+            map: function (doc) {
+              if (doc.tags) {
+                doc.tags.split(',').forEach(function (tag) {
+                  tag = tag.trim();
+                  emit(tag, null);
+                });
+              }
+            }
+          }, {
+            include_docs: true,
+            key: tag
+          }, function (err, res) {
+            if (err) {
+              done(err);
+            } else {
+              var posts = 
+                dedupe(res.rows, 'id')
+                .map(function (row) {
+                  return row.doc;
+                })
+                .sort(function (a, b) {
+                  return b.created_at - a.created_at;
+                });
+
+              done(null, posts);
+            }
+          });
+        },
         drafts: function (done) {
           Pouch.query({
             map: function (doc) {
@@ -54,14 +138,24 @@ module.exports = function (app) {
         saveDraft: function (post, done) {
           post.published = false;
           post = update_timestamps(post);
-          
-          Pouch.post(post, done);
+          modify_id(post, function (err, post) {
+            if (err) {
+              done(err);
+            } else {
+              Pouch.post(post, done); 
+            }
+          });
         },
         save: function (post, done) {
           post.published = true;
           post = update_timestamps(post);
-
-          Pouch.post(post, done);
+          modify_id(post, function (err, post) {
+            if (err) {
+              done(err);
+            } else {
+              Pouch.post(post, done); 
+            }
+          });
         }
       };
     }

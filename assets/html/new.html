@@ -5,10 +5,27 @@
         <label>Title</label>
         <input class="form-control" type="text" ng-model="post.title">
       </div>
+      
+      <div class="form-group">
+        <label>Slug</label>
+        <input class="form-control" type="text" ng-model="post.id" value="{{ post._id }}">
+      </div>
+
       <div class="form-group">
         <label>Body</label>
         <textarea class="form-control" ng-model="post.text" style="height: 500px;"></textarea>
       </div>
+      
+      <div class="form-group">
+        <label>Author</label>
+        <input class="form-control" type="text" ng-model="post.author">
+      </div>
+      
+      <div class="form-group">
+        <label>Tags (comma separated)</label>
+        <input class="form-control" type="text" ng-model="post.tags">
+      </div>
+      
       <button class="btn btn-info" ng-click="draft(post)">Draft</button>
       <button class="btn btn-primary" ng-click="publish(post)">Publish</button>
       <button class="btn pull-right" ng-click="delete(post)" ng-show="post._id">Delete</button>

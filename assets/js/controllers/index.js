@@ -3,7 +3,8 @@ var plugins = [
   require('./new'),
   require('./post'),
   require('./recent'),
-  require('./search')
+  require('./search'),
+  require('./tags')
 ];
 
 module.exports = function (app) {
