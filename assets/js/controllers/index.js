@@ -4,7 +4,8 @@ var plugins = [
   require('./post'),
   require('./recent'),
   require('./search'),
-  require('./tags')
+  require('./tags'),
+  require('./sync')
 ];
 
 module.exports = function (app) {

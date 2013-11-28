@@ -12,6 +12,10 @@
         <em>Edited {{ post.modified_at | date }}</em>
       </span>
     </p>
+    <p>By {{ post.author }}</p>
+    <p>
+      <a ng-repeat="tag in post.tags.split(',')" href="#/{{ tag.trim() }}">#{{ tag.trim() }} </a>
+    </p>
     <!-- <div ng-bind-html="post.text | markdown"></div> -->
     <div>{{ post.text }}</div>
   </div>
