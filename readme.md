@@ -62,3 +62,5 @@ In approximate order of priority.
 * CMS-like fields and data: To be frank, I want to unseat Wordpress.
 * Better Search: The current search is pretty rudimentary. Using [Pouch-Search][pouchsearch], we can give it Lucene-style querying.
 * Imitate Medium: They do editing content well. Stand on the shoulders of giants.
+
+To find things to do, try `grep -r TODO assets`
