@@ -1,0 +1,13 @@
+<h1 ng-hide="_done">Loading...</h1>
+<div class="row" ng-show="_done">
+  <div class="col-md-12">
+    <form>
+      <div class="form-group">
+        <label>Search</label>
+        <input class="form-control" type="text" ng-model="querystring">
+      </div>
+      <button class="btn btn-info" ng-click="search(querystring)">Search</button>
+    </form>
+  </div>
+</div>
+<div ng-include="'list.html'"></div>

@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>
+      <a href="#/{{ post._id }}">{{ post.title }}</a>
+    </h1>
+    <p>
+      <a href="#/{{ post._id }}/edit">Edit</a>
+      |
+      <em>{{ post.created_at | date }}</em>
+      <span ng-show="post.modified_at">
+        |
+        <em>Edited {{ post.modified_at | date }}</em>
+      </span>
+    </p>
+    <!-- <div ng-bind-html="post.text | markdown"></div> -->
+    <div>{{ post.text }}</div>
+  </div>
+</div>

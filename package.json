@@ -1,0 +1,29 @@
+{
+  "name": "porter",
+  "version": "0.0.0",
+  "description": "Diary using PouchDB, made social with WebRTC.",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "blog",
+    "grunt",
+    "couchdb",
+    "pouchdb"
+  ],
+  "author": "Max Thayer <garbados@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "matchdep": "~0.3.0",
+    "grunt": "~0.4.2",
+    "browserify": "~2.35.4",
+    "grunt-browserify": "~1.2.11",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-connect": "~0.5.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-couchapp": "~0.2.1"
+  }
+}
