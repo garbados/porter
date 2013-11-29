@@ -84,7 +84,7 @@ There is no other post with the identifier `why-replication-is-awesome`, but `bl
 
 ## Roadmap
 
-In approximate order of priority.
+In approximate order of priority:
 
 * Social: Presently, Porter is just a diary. Using peer-to-peer protocols like WebRTC, we can allow Porter instances to share data without servers -- that is, be social, without exposing data to a central hub that might sell your data. Social without servers. (Status: [PeerPouch][peerpouch] uses a centralized server as a "hub", so that's a no-go. Currently examining Bitmessage instead. If you have suggestions, file an issue!)
 * Login automatically: Save credentials so that your Porter syncs with designated remotes automatically.
