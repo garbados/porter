@@ -4,7 +4,6 @@ module.exports = function (app) {
     function ($scope, Pouch, $location) {
       $scope.sync = function (target) {
         if (target) {
-          // TODO allow filters like published-only
           var opts = {
             continuous: true,
             create_target: true

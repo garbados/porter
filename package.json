@@ -1,7 +1,7 @@
 {
   "name": "porter",
   "version": "0.0.0",
-  "description": "Diary using PouchDB, made social with WebRTC.",
+  "description": "Diary using PouchDB.",
   "main": "Gruntfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

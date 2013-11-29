@@ -4,12 +4,13 @@
 [peerpouch]: derp
 [pouchsearch]: herp
 [cloudant]: https://cloudant.com
+[mit]: burp
 
 Diary using PouchDB. To get started, check out the [demo][demo].
 
 By storing your information in PouchDB, all your data is kept safe on your computer. That way, when you visit the [demo][demo], only your data is shown, even though it's a public URL.
 
-Porter can replicate blog data with your friends, giving you the ability to share content with your friends in real-time using nothing but your browsers. No servers, no third parties. Just you, your friends, and the stuff you like. (Note: this feature is in development)
+But, because it's PouchDB, you can sync your data with remote CouchDB and [Cloudant][cloudant] instances, so you can use Porter like an offline-ready admin interface to your CMS.
 
 Porter is under heavy development, so see the Roadmap section for upcoming features.
 
@@ -83,10 +84,16 @@ There is no other post with the identifier `why-replication-is-awesome`, but `bl
 
 In approximate order of priority.
 
-* Social: Presently, Porter is just a diary. We'll be adding that whole "social-without-servers" thing momentarily. (Status: [PeerPouch][peerpouch] uses a centralized server as a "hub", so that's a no-go. Currently examining Bitmessage instead. If you have suggestions, file an issue!)
-* Field auto-filling: Intelligently suggest options for Author, Tags.
+* Social: Presently, Porter is just a diary. Using peer-to-peer protocols like WebRTC, we can allow Porter instances to share data without servers -- that is, be social, without exposing data to a central hub that might sell your data. Social without servers. (Status: [PeerPouch][peerpouch] uses a centralized server as a "hub", so that's a no-go. Currently examining Bitmessage instead. If you have suggestions, file an issue!)
+* Field auto-filling: Intelligently suggest options for Author and Tags.
 * Login automatically: Save credentials so that your Porter syncs with designated remotes automatically.
 * Better Search: Use [Pouch-Search][pouchsearch] to give Porter Lucene-style querying.
 * Imitate Medium: They do content well. Stand on the shoulders of giants.
+* Error reporting: When things go wrong, Porter logs stacktraces, but generally hides them from the UI. That's dumb.
+* Tests: Good for the project, good for the soul. Bonus points for coverage.
 
 To find things to do, try `grep -r TODO assets/js`. I built most of this without internet access, so I left plenty undone for want of external documentation.
+
+## License
+
+[MIT][mit], brolaf.
