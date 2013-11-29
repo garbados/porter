@@ -36,10 +36,39 @@ module.exports = function (app) {
         });
       }
 
+      function getCategories () {
+        Pouch.query({
+          map: function (doc) {
+            if (doc.category) {
+              emit(doc.category, null);
+            }
+          },
+          reduce: '_count'
+        }, {
+          group: true
+        }, function (err, res) {
+          if (err) {
+            console.trace(err);
+          } else {
+            var categories = res.rows
+                  .sort(function (a, b) {
+                    return b.value - a.value;
+                  });
+
+            $scope.$apply(function () {
+              $scope.categories = categories;
+            });
+          }
+        });
+      }
+
       // refresh tags whenever db changes
       Pouch.changes({
         continuous: true,
-        onChange: getTags
+        onChange: function () {
+          getTags();
+          getCategories();
+        }
       });
     }
   ]);

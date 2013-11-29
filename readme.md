@@ -49,7 +49,8 @@ There is only one object: the Post. It looks like this:
       published: true,
       title: 'How I Made a Million Dollars',
       text: 'Today was my first day at the Fed managing the presses, and...',
-      tags: ['blog', 'money', 'fed', 'silly'],
+      category: 'blog',
+      tags: ['money', 'fed', 'silly'],
       author: 'Yours Truly'
     }
 
@@ -64,9 +65,10 @@ Porter uses a simple but flexible routing system that mirrors the typical CMS:
 * `/search`: rudimentary text search
 * `/new`: create a new post
 * `/sync`: synchronize with a remote CouchDB or [Cloudant][cloudant] instance
-* `/:tag`: all posts tagged with `:tag`, ex: `/blog` lists all posts tagged `blog`
-* `/:tag/:id`: Displays the post with a matching `:id`. (`:tag` is, in fact, extraneous)
-* `/:tag/:id/edit`: Edit the post with a matching `:id`. (again, `:tag` is extraneous)
+* `/tag/:tag`: all posts tagged with `:tag`, ex: `/tag/derp` lists all posts tagged `derp`
+* `/:category`: all posts under `:category`, ex: `/blog` lists all posts categorized as `blog`
+* `/:category/:id`: displays the post with a matching `:id`. (`:tag` is, in fact, extraneous)
+* `/:category/:id/edit`: edit the post with a matching `:id`. (again, `:tag` is extraneous)
 
 Why is `:tag` sometimes extraneous? Descriptive URLs and backwards compatibility, more or less. For example, consider this URL:
 

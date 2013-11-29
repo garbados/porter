@@ -1,13 +1,15 @@
 <div class="row">
   <div class="col-md-12">
     <h1>
-      <a href="#/{{ tag || post.tags.split(',')[0].trim() || 'post' }}/{{ post._id }}">{{ post.title }}</a>
+      <a href="#/{{ post.category || 'post' }}/{{ post._id }}">{{ post.title }}</a>
     </h1>
     <div ng-bind-html="post.text.split('\n\n')[0] | markdown"></div>
     <p>
-      <a href="#/{{ tag || post.tags.split(',')[0].trim() || 'post' }}/{{ post._id }}/edit">Edit</a>
+      <a href="#/{{ post.category || 'post' }}/{{ post._id }}/edit">Edit</a>
        | 
-      <a ng-repeat="tag in post.tags.split(',')" href="#/{{ tag.trim() }}">#{{ tag.trim() }} </a>
+      <a href="#/{{ post.category }}">@{{ post.category}}</a>
+       |
+      <a ng-repeat="tag in post.tags.split(',')" href="#/tag/{{ tag.trim() }}">#{{ tag.trim() }} </a>
     </p>
   </div>
 </div>

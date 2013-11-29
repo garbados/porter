@@ -26,15 +26,19 @@ module.exports = function (app) {
         controller: 'SyncCtrl',
         templateUrl: 'sync.html'
       })
-      .when('/:tag/', {
+      .when('/tag/:tag/', {
         controller: 'TagCtrl',
         templateUrl: 'list.html'
       })
-      .when('/:tag/:id', {
+      .when('/:category', {
+        controller: 'CategoryCtrl',
+        templateUrl: 'list.html'
+      })
+      .when('/:category/:id', {
         controller: 'PostCtrl',
         templateUrl: 'post.html'
       })
-      .when('/:tag/:id/edit', {
+      .when('/:category/:id/edit', {
         controller: 'NewCtrl',
         templateUrl: 'new.html'
       })

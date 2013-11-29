@@ -105,6 +105,34 @@ module.exports = function (app) {
         });
       }
 
+      function getCategories (category, done) {
+        Pouch.query({
+          map: function (doc) {
+            if (doc.category) {
+              emit(doc.category, null);
+            }
+          }
+        }, {
+          include_docs: true,
+          key: category
+        }, function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            var posts = 
+              res.rows
+              .map(function (row) {
+                return row.doc;
+              })
+              .sort(function (a, b) {
+                return b.created_at - a.created_at;
+              });
+
+            done(null, posts);
+          }
+        });
+      }
+
       function _prepPosts (done) {
         return function (err, res) {
           if (err) {
@@ -156,6 +184,9 @@ module.exports = function (app) {
       return {
         tags: function (tag, done) {
           watch(getTags.bind(null, tag, done));
+        },
+        categories: function (category, done) {
+          watch(getCategories.bind(null, category, done));
         },
         drafts: function (done) {
           watch(getDrafts.bind(null, done));

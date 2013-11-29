@@ -6,7 +6,8 @@ var plugins = [
   require('./search'),
   require('./tags'),
   require('./sync'),
-  require('./nav')
+  require('./nav'),
+  require('./category')
 ];
 
 module.exports = function (app) {
