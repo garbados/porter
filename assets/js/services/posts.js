@@ -74,6 +74,86 @@ module.exports = function (app) {
         return results;
       }
 
+      function allTags (done) {
+        Pouch.query({
+          map: function (doc) {
+            if (doc.tags) {
+              doc
+                .tags
+                .split(',')
+                .map(function (tag) {
+                  return tag.trim();
+                })
+                .forEach(function (tag) {
+                  emit(tag, null);
+                });
+            }
+          },
+          reduce: '_count'
+        }, {
+          group: true
+        }, function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            var tags = res.rows
+                  .sort(function (a, b) {
+                    return b.value - a.value;
+                  });
+
+            done(null, tags);
+          }
+        });
+      }
+
+      function allCategories (done) {
+        Pouch.query({
+          map: function (doc) {
+            if (doc.category) {
+              emit(doc.category, null);
+            }
+          },
+          reduce: '_count'
+        }, {
+          group: true
+        }, function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            var categories = res.rows
+                  .sort(function (a, b) {
+                    return b.value - a.value;
+                  });
+
+            done(null, categories);
+          }
+        });
+      }
+
+      function allAuthors (done) {
+        Pouch.query({
+          map: function (doc) {
+            if (doc.author) {
+              emit(doc.author, null);
+            }
+          },
+          reduce: '_count'
+        }, {
+          group: true
+        }, function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            var authors = res.rows
+                  .sort(function (a, b) {
+                    return b.value - a.value;
+                  });
+
+            done(null, authors);
+          }
+        });
+      }
+
       function getTags (tag, done) {
         Pouch.query({
           map: function (doc) {
@@ -133,6 +213,34 @@ module.exports = function (app) {
         });
       }
 
+      function getAuthors (author, done) {
+        Pouch.query({
+          map: function (doc) {
+            if (doc.author) {
+              emit(doc.author, null);
+            }
+          }
+        }, {
+          include_docs: true,
+          key: author
+        }, function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            var authors = 
+              res.rows
+              .map(function (row) {
+                return row.doc;
+              })
+              .sort(function (a, b) {
+                return b.created_at - a.created_at;
+              });
+
+            done(null, authors);
+          }
+        });
+      }
+
       function _prepPosts (done) {
         return function (err, res) {
           if (err) {
@@ -187,6 +295,18 @@ module.exports = function (app) {
         },
         categories: function (category, done) {
           watch(getCategories.bind(null, category, done));
+        },
+        authors: function (author, done) {
+          watch(getAuthors.bind(null, author, done));
+        },
+        allTags: function (done) {
+          watch(allTags.bind(null, done));
+        },
+        allCategories: function (done) {
+          watch(allCategories.bind(null, done));
+        },
+        allAuthors: function (done) {
+          watch(allAuthors.bind(null, done));
         },
         drafts: function (done) {
           watch(getDrafts.bind(null, done));

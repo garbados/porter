@@ -1,7 +1,8 @@
 var plugins = [
   require('./pouch'),
   require('./posts'),
-  require('./markdown')
+  require('./markdown'),
+  require('./autocomplete')
 ];
 
 module.exports = function (app) {

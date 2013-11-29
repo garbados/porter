@@ -6,21 +6,21 @@
     <div ng-bind-html="post.text | markdown"></div>
     <hr>
     <p ng-show="post.author">
-      By {{ post.author }}, under 
-      <a href="#/{{ post.category }}">@{{ post.category }}</a>
+      By {{ post.author }}
     </p>
     <p>
-      <a ng-repeat="tag in post.tags.split(',')" href="#/{{ tag.trim() }}">#{{ tag.trim() }} </a>
-    </p>
-    <p>
-      <em>Published {{ post.created_at | date }}</em>
+      Published {{ post.created_at | date }}
       <span ng-show="post.modified_at">
         |
-        <em>Edited {{ post.modified_at | date }}</em>
+        Edited {{ post.modified_at | date }}
       </span>
     </p>
     <p>
       <a href="#/{{ category || 'post' }}/{{ post._id }}/edit">Edit</a>
+       |
+      <a href="#/{{ post.category }}">@{{ post.category }}</a>
+       |
+      <a ng-repeat="tag in post.tags.split(',')" href="#/{{ tag.trim() }}">#{{ tag.trim() }} </a>
     </p>
   </div>
 </div>

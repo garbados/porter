@@ -1,10 +1,10 @@
 # Porter
 
 [demo]: http://porter.maxthayer.org
-[peerpouch]: derp
-[pouchsearch]: herp
+[peerpouch]: https://github.com/natevw/PeerPouch
+[pouchsearch]: https://github.com/pouchdb/pouchdb-search
 [cloudant]: https://cloudant.com
-[mit]: burp
+[mit]: http://opensource.org/licenses/MIT
 
 Diary using PouchDB. To get started, check out the [demo][demo].
 
@@ -67,10 +67,10 @@ Porter uses a simple but flexible routing system that mirrors the typical CMS:
 * `/sync`: synchronize with a remote CouchDB or [Cloudant][cloudant] instance
 * `/tag/:tag`: all posts tagged with `:tag`, ex: `/tag/derp` lists all posts tagged `derp`
 * `/:category`: all posts under `:category`, ex: `/blog` lists all posts categorized as `blog`
-* `/:category/:id`: displays the post with a matching `:id`. (`:tag` is, in fact, extraneous)
-* `/:category/:id/edit`: edit the post with a matching `:id`. (again, `:tag` is extraneous)
+* `/:category/:id`: displays the post with a matching `:id`. (`:category` is, in fact, extraneous)
+* `/:category/:id/edit`: edit the post with a matching `:id`. (again, `:category` is extraneous)
 
-Why is `:tag` sometimes extraneous? Descriptive URLs and backwards compatibility, more or less. For example, consider this URL:
+Why is `:category` sometimes extraneous? Descriptive URLs and backwards compatibility, more or less. For example, consider this URL:
 
     https://cloudant.com/blog/why-replication-is-awesome
 
@@ -87,7 +87,6 @@ There is no other post with the identifier `why-replication-is-awesome`, but `bl
 In approximate order of priority.
 
 * Social: Presently, Porter is just a diary. Using peer-to-peer protocols like WebRTC, we can allow Porter instances to share data without servers -- that is, be social, without exposing data to a central hub that might sell your data. Social without servers. (Status: [PeerPouch][peerpouch] uses a centralized server as a "hub", so that's a no-go. Currently examining Bitmessage instead. If you have suggestions, file an issue!)
-* Field auto-filling: Intelligently suggest options for Author and Tags.
 * Login automatically: Save credentials so that your Porter syncs with designated remotes automatically.
 * Better Search: Use [Pouch-Search][pouchsearch] to give Porter Lucene-style querying.
 * Imitate Medium: They do content well. Stand on the shoulders of giants.

@@ -1,7 +1,8 @@
 var app = angular.module('app', [
       'ngSanitize',
       'ngRoute',
-      'slugifier'
+      'slugifier',
+      'ui.bootstrap'
     ]),
     plugins = [
       require('./services'),
