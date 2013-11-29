@@ -10,7 +10,7 @@ ddoc = {
     from: '/',
     to: '/index.html'
   }, {
-    from '*',
+    from: '*',
     to: '/*'
   }]
 };

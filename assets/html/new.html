@@ -8,13 +8,13 @@
       
       <div class="form-group">
         <label>Slug</label>
-        <!-- TODO: fix this field's autofill; value doesn't work -->
-        <input class="form-control" type="text" ng-model="post.id" value="{{ post._id }}">
+        <!-- TODO: fix this field's autofill; ng-value doesn't work -->
+        <input class="form-control" type="text" ng-model="post.id">
       </div>
 
       <div class="form-group">
         <label>Body</label>
-        <textarea class="form-control" ng-model="post.text" style="height: 500px;"></textarea>
+        <textarea class="form-control" ng-model="post.text" style="height: 300px;"></textarea>
       </div>
       
       <div class="form-group">

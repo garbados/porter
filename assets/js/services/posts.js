@@ -16,10 +16,18 @@ module.exports = function (app) {
       // ensure that id isn't already taken
       // and remove the old post
       function modify_id (post, done) {
-        if (post.id !== post._id) {
-          Pouch.get(post.id, function (err, res) {
-            if (err) {
-              if (err.status === 404) {
+        if (post._id) {
+          if (post.id !== post._id) {
+            Pouch.get(post._id, function (err, res) {
+              if (err) {
+                if (err.status === 404) {
+                  post._id = post.id;
+                  delete post.id;
+                  done(null, post);
+                } else {
+                  done(err);
+                }
+              } else {
                 Pouch.remove(post, function (err) {
                   if (err) {
                     done(err);
@@ -29,14 +37,14 @@ module.exports = function (app) {
                     done(null, post);
                   }
                 });
-              } else {
-                done(err);
               }
-            } else {
-              done(res);
-            }
-          });
+            });
+          } else {
+            done(null, post);
+          }
         } else {
+          post._id = post.id;
+          delete post.id;
           done(null, post);
         }
       }
@@ -130,7 +138,9 @@ module.exports = function (app) {
               done(err);
             } else {
               done(null, res.rows.map(function (row) {
-                  return row.doc;
+                return row.doc;
+              }).sort(function (a, b) {
+                return b.created_at - a.created_at;
               }));
             }
           });

@@ -1,4 +1,8 @@
-var app = angular.module('app', []),
+var app = angular.module('app', [
+      'ngSanitize',
+      'ngRoute',
+      'slugifier'
+    ]),
     plugins = [
       require('./services'),
       require('./controllers'),

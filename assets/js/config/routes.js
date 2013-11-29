@@ -7,6 +7,9 @@ module.exports = function (app) {
         controller: 'RecentCtrl',
         templateUrl: 'list.html'
       })
+      .when('/404', {
+        templateUrl: 'notfound.html'
+      })
       .when('/drafts', {
         controller: 'DraftCtrl',
         templateUrl: 'list.html'
@@ -34,6 +37,9 @@ module.exports = function (app) {
       .when('/:tag/:id/edit', {
         controller: 'NewCtrl',
         templateUrl: 'new.html'
+      })
+      .otherwise({
+        redirectTo: '/404'
       });
     }
   ]);

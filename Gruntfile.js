@@ -11,10 +11,29 @@ module.exports = function (grunt) {
       ]
     },
     concat: {
+      css: {
+        files: {
+          'dist/css/bundle.css': [
+            'assets/css/*.css'
+          ]
+        }
+      },
+      vendor: {
+        files: {
+          'dist/js/vendor.js': [
+            'assets/vendor/angular.js',
+            'assets/vendor/angular-*.js',
+            'assets/vendor/pouchdb.js',
+            'assets/vendor/showdown.js'
+          ]
+        }
+      }
+    },
+    uglify: {
       dist: {
         files: {
-          'dist/css/bundle.css': ['assets/css/*.css'],
-          'dist/js/vendor.js': ['assets/vendor/*.js']
+          'dist/js/vendor.min.js': ['dist/js/vendor.js'],
+          'dist/js/bundle.min.js': ['dist/js/bundle.js']
         }
       }
     },
@@ -34,7 +53,7 @@ module.exports = function (grunt) {
     browserify: {
       dist: {
         files: {
-          'dist/js/bundle.js': ['assets/js/app.js', 'assets/js/**/*.js']
+          'dist/js/bundle.js': ['assets/js/app.js']
         }
       }
     },
@@ -54,9 +73,13 @@ module.exports = function (grunt) {
         files: ['assets/js/**/*.js'],
         tasks: ['jshint', 'browserify'],
       },
+      vendor: {
+        files: ['assets/vendor/*.js'],
+        tasks: ['concat']
+      },
       css: {
         files: ['assets/css/*.css'],
-        tasks: ['concat']
+        tasks: ['concat:css']
       },
       html: {
         files: ['assets/html/*.html'],
@@ -82,6 +105,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'jshint',
     'concat',
+    // 'uglify', // enable when index.html can chooses min, non-min dynamically
     'copy',
     'browserify'
   ]);

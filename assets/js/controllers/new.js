@@ -1,14 +1,15 @@
 module.exports = function (app) {
   app.controller('NewCtrl', [
-    '$scope', 'Pouch', 'Posts', '$location', '$routeParams',
-    function ($scope, Pouch, Posts, $location, $routeParams) {
+    '$scope', 'Pouch', 'Posts', '$location', '$routeParams', 'Slug',
+    function ($scope, Pouch, Posts, $location, $routeParams, Slug) {
       function redirect (to) {
-        // TODO: doesn't currently redirect if `to` === '/'
         return function (err) {
           if (err) {
             console.trace(err);
           } else {
-            $location.path(to);
+            $scope.$apply(function () {
+              $location.path(to);
+            });
           }
         };
       }
@@ -25,12 +26,20 @@ module.exports = function (app) {
         });
       }
 
+      $scope.$watch('post.title', function () {
+        if ($scope.post) {
+          $scope.post.id = $scope.post._id || Slug.slugify($scope.post.title); 
+        }
+      });
+
       $scope.draft = function (post) {
         Posts.saveDraft(post, redirect('/drafts'));
       };
 
       $scope.publish = function (post) {
-        Posts.save(post, redirect('/'));
+        Posts.save(post, function (err, res) {
+          redirect('/recent/' + res.id)(err);
+        });
       };
 
       $scope.delete = function (post) {

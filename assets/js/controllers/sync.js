@@ -12,10 +12,10 @@ module.exports = function (app) {
 
           Pouch.replicate.from(target, opts);
           Pouch.replicate.to(target, opts);
-          // TODO fix redirect; doesn't redirect to '/'
+
           $location.path('/');
         } else {
-          // TODO error message
+          $scope.error = "Target is required.";
         }
       };
     }

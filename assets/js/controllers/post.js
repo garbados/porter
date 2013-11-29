@@ -1,10 +1,16 @@
 module.exports = function (app) {
   app.controller('PostCtrl', [
-    '$scope', 'Pouch', '$routeParams',
-    function ($scope, Pouch, $routeParams) {
+    '$scope', 'Pouch', '$routeParams', '$location',
+    function ($scope, Pouch, $routeParams, $location) {
       Pouch.get($routeParams.id, function (err, res) {
         if (err) {
-          console.trace(err);
+          if (err.status === 404) {
+            $scope.$apply(function () {
+              $location.path('/404');
+            });
+          } else {
+            console.trace(err); 
+          }
         } else {
           $scope.$apply(function () {
             $scope.post = res;

@@ -1,22 +1,23 @@
 <div class="row">
   <div class="col-md-12">
     <h1>
-      <a href="#/{{ tag || post.tags.split(',')[0].trim() }}/{{ post._id }}">{{ post.title }}</a>
+      <a href="#/{{ tag || post.tags.split(',')[0].trim() || 'post' }}/{{ post._id }}">{{ post.title }}</a>
     </h1>
+    <div ng-bind-html="post.text | markdown"></div>
+    <hr>
+    <p ng-show="post.author">By {{ post.author }}</p>
     <p>
-      <a href="#/post/{{ post._id }}/edit">Edit</a>
-      |
-      <em>{{ post.created_at | date }}</em>
+      <a ng-repeat="tag in post.tags.split(',')" href="#/{{ tag.trim() }}">#{{ tag.trim() }} </a>
+    </p>
+    <p>
+      <em>Published {{ post.created_at | date }}</em>
       <span ng-show="post.modified_at">
         |
         <em>Edited {{ post.modified_at | date }}</em>
       </span>
     </p>
-    <p>By {{ post.author }}</p>
     <p>
-      <a ng-repeat="tag in post.tags.split(',')" href="#/{{ tag.trim() }}">#{{ tag.trim() }} </a>
+      <a href="#/{{ tag || post.tags.split(',')[0].trim() || 'post' }}/{{ post._id }}/edit">Edit</a>
     </p>
-    <!-- <div ng-bind-html="post.text | markdown"></div> -->
-    <div>{{ post.text }}</div>
   </div>
 </div>
