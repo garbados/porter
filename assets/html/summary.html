@@ -3,7 +3,7 @@
     <h1>
       <a href="#/{{ post.category || 'post' }}/{{ post._id }}">{{ post.title }}</a>
     </h1>
-    <div ng-bind-html="post.text.split('\n\n')[0] | markdown"></div>
+    <div ng-bind-html="post.text | summary | markdown"></div>
     <p>
       <a href="#/{{ post.category || 'post' }}/{{ post._id }}/edit">Edit</a>
        | 

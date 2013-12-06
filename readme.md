@@ -12,6 +12,14 @@ By storing your information in PouchDB, all your data is kept safe on your compu
 
 But, because it's PouchDB, you can sync your data with remote CouchDB and [Cloudant][cloudant] instances, so you can use Porter like an offline-ready admin interface to your CMS.
 
+Here are some more features:
+
+* Write posts in Markdown; Porter converts to HTML
+* Distinguish published from draft posts
+* Tagging, categorization, and authorship
+* Search by text, tag, and category
+* Autocomplete author and category based on past values
+
 Porter is under heavy development, so see the Roadmap section for upcoming features.
 
 ## Install
@@ -93,7 +101,7 @@ In approximate order of priority:
 * Error reporting: When things go wrong, Porter logs stacktraces, but generally hides them from the UI. That's dumb.
 * Tests: Good for the project, good for the soul. Bonus points for coverage.
 
-To find things to do, try `grep -r TODO assets/js`. I built most of this without internet access, so I left plenty undone for want of external documentation.
+To find things to do, try `grep -r TODO assets/{js,html}`. I built most of this without internet access, so I left plenty undone for want of external documentation.
 
 ## License
 

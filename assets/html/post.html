@@ -20,7 +20,7 @@
        |
       <a href="#/{{ post.category }}">@{{ post.category }}</a>
        |
-      <a ng-repeat="tag in post.tags.split(',')" href="#/{{ tag.trim() }}">#{{ tag.trim() }} </a>
+      <a ng-repeat="tag in post.tags.split(',')" href="#/tag/{{ tag.trim() }}">#{{ tag.trim() }} </a>
     </p>
   </div>
 </div>

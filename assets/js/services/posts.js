@@ -255,67 +255,48 @@ module.exports = function (app) {
         };
       }
 
-      function getDrafts (done) {
-        Pouch.query({
-          map: function (doc) {
-            if (doc.published === false) {
-              emit(doc._id, null);
-            }
+      function _getPosts (query) {
+        return function (opts, done) {
+          if (typeof opts === 'function') {
+            done = opts;
+            opts = {};
           }
-        }, {
-          include_docs: true
-        }, _prepPosts(done));
+          opts.include_docs = true;
+
+          Pouch.query({
+            map: query
+          }, opts, _prepPosts(done));
+        };
       }
 
-      function getPublished (done) {
-        Pouch.query({
-          map: function (doc) {
-            if (doc.published === true) {
-              emit(doc._id, null);
-            }
+      function getDrafts (opts, done) {
+        _getPosts(function (doc) {
+          if (doc.published === false) {
+            emit(doc._id, null);
           }
-        }, {
-          include_docs: true
-        }, _prepPosts(done));
+        })(opts, done);
       }
 
-      function watch (callback) {
-        // do it once
-        callback();
-        // repeat when db changes
-        Pouch.changes({
-          continuous: true,
-          onChange: callback
-        });
+      function getPublished (opts, done) {
+        _getPosts(function (doc) {
+          if (doc.published === true) {
+            emit(doc._id, null);
+          }
+        })(opts, done);
       }
 
       return {
-        tags: function (tag, done) {
-          watch(getTags.bind(null, tag, done));
-        },
-        categories: function (category, done) {
-          watch(getCategories.bind(null, category, done));
-        },
-        authors: function (author, done) {
-          watch(getAuthors.bind(null, author, done));
-        },
-        allTags: function (done) {
-          watch(allTags.bind(null, done));
-        },
-        allCategories: function (done) {
-          watch(allCategories.bind(null, done));
-        },
-        allAuthors: function (done) {
-          watch(allAuthors.bind(null, done));
-        },
-        drafts: function (done) {
-          watch(getDrafts.bind(null, done));
-        },
-        published: function (done) {
-          watch(getPublished.bind(null, done));
-        },
+        tags: getTags,
+        categories: getCategories,
+        authors: getAuthors,
+        allTags: allTags,
+        allCategories: allCategories,
+        allAuthors: allAuthors,
+        drafts: getDrafts,
+        published: getPublished,
         saveDraft: function (post, done) {
           post.published = false;
+          post.type = 'porter';
           post = update_timestamps(post);
           modify_id(post, function (err, post) {
             if (err) {
@@ -327,6 +308,7 @@ module.exports = function (app) {
         },
         save: function (post, done) {
           post.published = true;
+          post.type = 'porter';
           post = update_timestamps(post);
           modify_id(post, function (err, post) {
             if (err) {
