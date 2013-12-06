@@ -269,6 +269,14 @@ module.exports = function (app) {
         };
       }
 
+      function getPosts (opts, done) {
+        _getPosts(function (doc) {
+          if (doc.published !== undefined) {
+            emit(doc._id, null);
+          }
+        })(opts, done);
+      }
+
       function getDrafts (opts, done) {
         _getPosts(function (doc) {
           if (doc.published === false) {
@@ -294,6 +302,7 @@ module.exports = function (app) {
         allAuthors: allAuthors,
         drafts: getDrafts,
         published: getPublished,
+        posts: getPosts,
         saveDraft: function (post, done) {
           post.published = false;
           post.type = 'porter';

@@ -1,18 +1,14 @@
 module.exports = function (app) {
   app.controller('SearchCtrl', [
-    '$scope', 'Pouch',
-    function ($scope, Pouch) {
-      Pouch.allDocs({
-        include_docs: true
-      }, function (err, res) {
+    '$scope', 'Posts',
+    function ($scope, Posts) {
+      Posts.posts(function (err, res) {
         if (err) {
           console.trace(err);
         } else {
           $scope.$apply(function () {
+            $scope._posts = res;
             $scope._done = true;
-          });
-          $scope._posts = res.rows.map(function (row) {
-            return row.doc;
           });
         }
       });
