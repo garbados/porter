@@ -8,3 +8,7 @@
 <div ng-repeat="post in posts | orderBy:'created_at':true">
   <div ng-include="'summary.html'"></div>
 </div>
+
+<div ng-show="next()">
+  <button class="btn btn-info" ng-click="loadMore()">Load More</button>
+</div>

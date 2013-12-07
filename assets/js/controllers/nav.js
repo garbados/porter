@@ -2,6 +2,12 @@ module.exports = function (app) {
   app.controller('NavCtrl', [
     '$scope', 'Posts',
     function ($scope, Posts) {
+      $scope.clear = function clear () {
+        if (confirm('Are you sure you want to clear your local data?')) {
+          PouchDB.destroy('porter');
+        } 
+      };
+
       Posts.allTags(function (err, tags) {
         if (err) {
           console.trace(err);
