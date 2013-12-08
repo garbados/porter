@@ -2,19 +2,38 @@ module.exports = function (app) {
   app.controller('SyncCtrl', [
     '$scope', 'Pouch', '$location',
     function ($scope, Pouch, $location) {
-      $scope.sync = function (target) {
-        if (target) {
-          var opts = {
-            continuous: true,
-            create_target: true
-          };
+      var success = 'Great! Replication in progress...';
 
-          Pouch.replicate.from(target, opts);
-          Pouch.replicate.to(target, opts);
+      var opts = {
+        create_target: true,
+        complete: function (err) {
+          if (err) {
+            $scope.$apply(function () {
+              $scope.error = JSON.stringify(err);
+            });
+          } else {
+            $scope.$apply(function () {
+              $location.path('/');
+            });
+          }
+        }
+      };
 
-          $location.path('/');
-        } else {
+      $scope.from = function (target) {
+        if (!target) {
           $scope.error = "Target is required.";
+        } else {
+          $scope.success = success;
+          Pouch.replicate.from(target, opts); 
+        }
+      };
+
+      $scope.to = function (target) {
+        if (!target) {
+          $scope.error = "Target is required.";
+        } else {
+          $scope.success = success;
+          Pouch.replicate.to(target, opts);
         }
       };
     }
