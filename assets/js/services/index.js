@@ -3,7 +3,8 @@ var plugins = [
   require('./posts'),
   require('./markdown'),
   require('./autocomplete'),
-  require('./summary')
+  require('./summary'),
+  require('./paginator')
 ];
 
 module.exports = function (app) {

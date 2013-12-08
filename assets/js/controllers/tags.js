@@ -1,16 +1,22 @@
 module.exports = function (app) {
   app.controller('TagCtrl', [
-    '$scope', 'Posts', '$routeParams',
-    function ($scope, Posts, $routeParams) {
+    '$scope', 'Posts', 'Paginator', '$routeParams',
+    function ($scope, Posts, Paginator, $routeParams) {
       $scope.tag = $routeParams.tag;
-      Posts.tags($routeParams.tag, function (err, posts) {
-        if (err) {
-          console.trace(err);
-        } else {
-          $scope.$apply(function () {
-            $scope.posts = posts;
-          });
-        }
+      $scope.posts = $scope.posts || [];
+
+      Paginator(Posts.tags.bind(Posts.tags, $routeParams.tag), 20, function (err, pages) {
+        if (err) throw err;
+        $scope.$apply(function () {
+          $scope.hasMore = pages.hasMore;
+
+          $scope.next = function (index) {
+            $scope.posts = $scope.posts.concat.apply($scope.posts, pages.next(index));
+          };
+
+          pages.reset();
+          $scope.next();
+        });
       });
     }
   ]);

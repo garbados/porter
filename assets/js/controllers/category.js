@@ -1,16 +1,22 @@
 module.exports = function (app) {
   app.controller('CategoryCtrl', [
-    '$scope', 'Posts', '$routeParams',
-    function ($scope, Posts, $routeParams) {
+    '$scope', 'Posts', 'Paginator', '$routeParams',
+    function ($scope, Posts, Paginator, $routeParams) {
       $scope.category = $routeParams.category;
-      Posts.categories($routeParams.category, function (err, posts) {
-        if (err) {
-          console.trace(err);
-        } else {
-          $scope.$apply(function () {
-            $scope.posts = posts;
-          });
-        }
+      $scope.posts = $scope.posts || [];
+
+      Paginator(Posts.categories.bind(Posts.categories, $routeParams.category), 20, function (err, pages) {
+        if (err) throw err;
+        $scope.$apply(function () {
+          $scope.hasMore = pages.hasMore;
+
+          $scope.next = function (index) {
+            $scope.posts = $scope.posts.concat.apply($scope.posts, pages.next(index));
+          };
+
+          pages.reset();
+          $scope.next();
+        });
       });
     }
   ]);

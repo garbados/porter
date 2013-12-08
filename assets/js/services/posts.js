@@ -81,6 +81,9 @@ module.exports = function (app) {
               doc
                 .tags
                 .split(',')
+                .filter(function (tag) {
+                  return tag;
+                })
                 .map(function (tag) {
                   return tag.trim();
                 })

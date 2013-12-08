@@ -9,6 +9,6 @@
   <div ng-include="'summary.html'"></div>
 </div>
 
-<div ng-show="next()">
-  <button class="btn btn-info" ng-click="loadMore()">Load More</button>
+<div ng-show="hasMore ? hasMore() : false">
+  <button class="btn btn-info" ng-click="next()">Load More</button>
 </div>
