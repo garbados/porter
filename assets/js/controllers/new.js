@@ -1,7 +1,9 @@
 module.exports = function (app) {
   app.controller('NewCtrl', [
-    '$scope', 'Pouch', 'Posts', '$location', '$routeParams', 'Slug',
-    function ($scope, Pouch, Posts, $location, $routeParams, Slug) {
+    '$scope', 'Pouch', 'Posts',
+    '$location', '$routeParams', 'Slug',
+    'Schemas',
+    function ($scope, Pouch, Posts, $location, $routeParams, Slug, Schemas) {
       function redirect (to) {
         return function (err) {
           if (err) {
@@ -21,9 +23,16 @@ module.exports = function (app) {
           } else {
             $scope.$apply(function () {
               $scope.post = res;
+              $scope.schema = Schemas($scope.post.category);
             });
           }
         });
+      } else {
+        var schema = Schemas($routeParams.category);
+        $scope.schema = schema;
+        $scope.posts = {
+          category: $routeParams.category
+        };
       }
 
       $scope.$watch('post.title', function () {

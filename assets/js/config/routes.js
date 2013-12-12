@@ -22,6 +22,10 @@ module.exports = function (app) {
         controller: 'NewCtrl',
         templateUrl: 'new.html'
       })
+      .when('/new/:category', {
+        controller: 'NewCtrl',
+        templateUrl: 'new.html'
+      })
       .when('/sync', {
         controller: 'SyncCtrl',
         templateUrl: 'sync.html'

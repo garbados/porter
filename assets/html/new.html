@@ -1,34 +1,35 @@
 <div class="row">
   <div class="col-md-12">
     <form>
-      <div class="form-group">
-        <label>Title</label>
-        <input class="form-control" type="text" ng-model="post.title">
-      </div>
-      
-      <div class="form-group">
-        <label>Slug</label>
-        <input class="form-control" type="text" ng-model="post.id">
-      </div>
-
-      <div class="form-group">
-        <label>Body</label>
-        <textarea class="form-control" ng-model="post.text" style="height: 250px;"></textarea>
-      </div>
-      
-      <div class="form-group">
-        <label>Author</label>
-        <input typeahead="author.key for author in authors | filter:$viewValue" class="form-control" type="text" ng-model="post.author">
-      </div>
-
-      <div class="form-group">
-        <label>Category</label>
-        <input typeahead="category.key for category in categories | filter:$viewValue" class="form-control" type="text" ng-model="post.category">
-      </div>
-      
-      <div class="form-group">
-        <label>Tags (comma separated)</label>
-        <input class="form-control" type="text" ng-model="post.tags">
+      <div ng-repeat="field in schema.fields" class="form-group">
+        <label>{{ field.label }}</label>
+        <div ng-switch="field.type">
+          <input
+            ng-switch-when="input"
+            class="form-control"
+            type="text"
+            typeahead="obj for obj in typeahead[field.model]"
+            ng-model="post[field.model]">
+          <textarea 
+            ng-switch-when="textarea"
+            class="form-control"
+            ng-model="post[field.model]"
+            style="height: 250px;"></textarea>
+          <div 
+            ng-switch-when="timepicker"
+            class="well well-small"
+            style="display:inline-block;"
+            ng-model="post[field.model]">
+            <timepicker></timepicker>
+          </div>
+          <div
+            ng-switch-when="datepicker"
+            class="well well-small"
+            style="display:inline-block;"
+            ng-model="post[field.model]">
+            <datepicker></datepicker>
+          </div>
+        </div>
       </div>
       
       <button class="btn btn-info" ng-click="draft(post)">Draft</button>

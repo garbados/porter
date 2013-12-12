@@ -4,7 +4,8 @@ var plugins = [
   require('./markdown'),
   require('./autocomplete'),
   require('./summary'),
-  require('./paginator')
+  require('./paginator'),
+  require('./schemas')
 ];
 
 module.exports = function (app) {
