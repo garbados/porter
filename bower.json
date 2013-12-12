@@ -30,12 +30,16 @@
     "angular-slugify": "~1.0.0",
     "pouchdb": "~1.0.0",
     "showdown": "~0.3.1",
-    "angular-bootstrap": "https://github.com/angular-ui/bootstrap-bower.git#~0.7.0"
+    "angular-bootstrap": "https://github.com/angular-ui/bootstrap/archive/bootstrap3.zip"
   },
   "resolutions": {
     "angular": "1.2.4"
   },
   "exportsOverride": {
+    "angular-bootstrap": {
+      "": "src/*/*.js",
+      "template": "template"
+    },
     "showdown": {
       "": "src/showdown.js"
     }

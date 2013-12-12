@@ -41,25 +41,21 @@ module.exports = function (app) {
         }
       });
 
-      Posts.allAuthors(function (err, authors) {
-        if (err) {
-          console.trace(err);
-        } else {
-          $scope.$apply(function () {
-            $scope.authors = authors;
-          });
-        }
-      });
+      $scope.typeahead = {};
+      function addTypeahead (field) {
+        return function (err, res) {
+          if (err) {
+            console.trace (err);
+          } else {
+            $scope.typeahead[field] = res.map(function (row) {
+              return row.key;
+            });
+          }
+        };
+      }
 
-      Posts.allCategories(function (err, categories) {
-        if (err) {
-          console.trace(err);
-        } else {
-          $scope.$apply(function () {
-            $scope.categories = categories;
-          });
-        }
-      });
+      Posts.allAuthors(addTypeahead('author'));
+      Posts.allCategories(addTypeahead('category'));
 
       $scope.draft = function (post) {
         Posts.saveDraft(post, redirect('/drafts'));

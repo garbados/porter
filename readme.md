@@ -95,7 +95,6 @@ There is no other post with the identifier `why-replication-is-awesome`, but `bl
 In approximate order of priority:
 
 * Post Types: allow custom metadata to define the fields different post categories ask for.
-* Plugins: Angular has a plugin system... Porter doesn't use it presently. But it should.
 * Social: Presently, Porter is just a diary. Using peer-to-peer protocols like WebRTC, we can allow Porter instances to share data amongst ad-hoc social networks -- like a decentralized social network.
 * Login automatically: Save credentials so that your Porter syncs with designated remotes automatically.
 * Better Search: Use [Pouch-Search][pouchsearch] to give Porter Lucene-style querying.

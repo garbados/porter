@@ -2,7 +2,7 @@ var app = angular.module('app', [
       'ngSanitize',
       'ngRoute',
       'slugifier',
-      'ui.bootstrap',
+      'ui.bootstrap.typeahead',
       'ui.bootstrap.datepicker',
       'ui.bootstrap.timepicker'
     ]),

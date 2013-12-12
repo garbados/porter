@@ -10,14 +10,23 @@ module.exports = function (grunt) {
         'assets/js/**/*.js'
       ]
     },
-    concat: {
-      css: {
+    less: {
+      dist: {
         files: {
-          'dist/css/bundle.css': [
-            'assets/css/*.css'
-          ]
+          'dist/css/bundle.css': 'assets/css/bootstrap.less'
         }
-      },
+      }
+    },
+    cssmin: {
+      minify: {
+        expand: true,
+        cwd: 'dist/css/',
+        src: ['*.css', '!*.min.css'],
+        dest: 'dist/css/',
+        ext: '.min.css'
+      }
+    },
+    concat: {
       bower: {
         files: {
           'dist/js/vendor.js': [
@@ -51,6 +60,17 @@ module.exports = function (grunt) {
             src: ['*.html'],
             dest: 'dist/',
             filter: 'isFile'
+          }, {
+            expand: true,
+            cwd: 'assets/fonts/',
+            src: ['*'],
+            dest: 'dist/fonts/',
+            filter: 'isFile'
+          }, {
+            expand: true,
+            cwd: 'lib/template/angular-bootstrap',
+            src: ['**'],
+            dest: 'dist/template/'
           }
         ]
       }
@@ -83,8 +103,8 @@ module.exports = function (grunt) {
         tasks: ['concat:bower']
       },
       css: {
-        files: ['assets/css/*.css'],
-        tasks: ['concat:css']
+        files: ['assets/css/*.less'],
+        tasks: ['less', '']
       },
       html: {
         files: ['assets/html/*.html'],
@@ -110,6 +130,8 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'bower',
     'jshint',
+    'less',
+    'cssmin',
     'concat',
     'copy',
     'browserify',

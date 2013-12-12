@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <form>
+    <form name="post">
       <div ng-repeat="field in schema.fields" class="form-group">
         <label>{{ field.label }}</label>
         <div ng-switch="field.type">
@@ -8,7 +8,7 @@
             ng-switch-when="input"
             class="form-control"
             type="text"
-            typeahead="obj for obj in typeahead[field.model]"
+            typeahead="obj for obj in typeahead[field.model] | filter:$viewValue"
             ng-model="post[field.model]">
           <textarea 
             ng-switch-when="textarea"
@@ -22,12 +22,16 @@
             ng-model="post[field.model]">
             <timepicker></timepicker>
           </div>
-          <div
+          <input
             ng-switch-when="datepicker"
-            class="well well-small"
-            style="display:inline-block;"
-            ng-model="post[field.model]">
-            <datepicker></datepicker>
+            type="text" 
+            datepicker-popup="shortDate" 
+            ng-model="dt" 
+            datepicker-options="dateOptions" 
+            date-disabled="disabled(date, mode)"
+            show-weeks="false"
+            ng-required="true" 
+            close-text="Close">
           </div>
         </div>
       </div>
