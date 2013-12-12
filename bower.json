@@ -1,0 +1,43 @@
+{
+  "name": "porter",
+  "version": "0.0.0",
+  "homepage": "https://github.com/garbados/porter",
+  "authors": [
+    "Max Thayer <garbados@gmail.com>"
+  ],
+  "description": "CMS Backend using PouchDB and AngularJS",
+  "keywords": [
+    "cms",
+    "pouchdb",
+    "couchdb",
+    "cloudant",
+    "angular",
+    "angularjs",
+    "blog"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.4",
+    "angular-route": "~1.2.4",
+    "angular-sanitize": "~1.2.4",
+    "angular-slugify": "~1.0.0",
+    "pouchdb": "~1.0.0",
+    "showdown": "~0.3.1",
+    "angular-bootstrap": "https://github.com/angular-ui/bootstrap-bower.git#~0.7.0"
+  },
+  "resolutions": {
+    "angular": "1.2.4"
+  },
+  "exportsOverride": {
+    "showdown": {
+      "": "src/showdown.js"
+    }
+  }
+}

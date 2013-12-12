@@ -18,15 +18,20 @@ module.exports = function (grunt) {
           ]
         }
       },
-      vendor: {
+      bower: {
         files: {
           'dist/js/vendor.js': [
-            'assets/vendor/angular.js',
-            'assets/vendor/angular-*.js',
-            'assets/vendor/pouchdb.js',
-            'assets/vendor/showdown.js'
+            'lib/angular/*.js',
+            'lib/pouchdb/*.js',
+            'lib/showdown/*.js',
+            'lib/angular-*/*.js'
           ]
         }
+      }
+    },
+    bower: {
+      install: {
+        // "it just works" :D
       }
     },
     uglify: {
@@ -74,8 +79,8 @@ module.exports = function (grunt) {
         tasks: ['jshint', 'browserify'],
       },
       vendor: {
-        files: ['assets/vendor/*.js'],
-        tasks: ['concat']
+        files: ['lib/*/*.js'],
+        tasks: ['concat:bower']
       },
       css: {
         files: ['assets/css/*.css'],
@@ -103,11 +108,12 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', [
+    'bower',
     'jshint',
     'concat',
-    // 'uglify', // enable when index.html can chooses min, non-min dynamically
     'copy',
-    'browserify'
+    'browserify',
+    'uglify'
   ]);
 
   grunt.registerTask('deploy', [
