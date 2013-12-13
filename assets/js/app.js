@@ -4,7 +4,8 @@ var app = angular.module('app', [
       'slugifier',
       'ui.bootstrap.typeahead',
       'ui.bootstrap.datepicker',
-      'ui.bootstrap.timepicker'
+      'ui.bootstrap.timepicker',
+      'ui.bootstrap.dropdownToggle'
     ]),
     plugins = [
       require('./services'),

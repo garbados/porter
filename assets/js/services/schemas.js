@@ -79,8 +79,13 @@ module.exports = function (app) {
         }
       };
 
-      return function (type) {
-        return schemas[type] || schemas.posts;
+      return {
+        all: function () {
+          return Object.keys(schemas);
+        },
+        get: function (type) {
+          return schemas[type] || schemas.posts;
+        }
       };
     }
   ]);

@@ -5,7 +5,8 @@ var plugins = [
   require('./autocomplete'),
   require('./summary'),
   require('./paginator'),
-  require('./schemas')
+  require('./schemas'),
+  require('./singularize')
 ];
 
 module.exports = function (app) {

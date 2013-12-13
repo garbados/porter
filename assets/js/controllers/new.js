@@ -23,14 +23,14 @@ module.exports = function (app) {
           } else {
             $scope.$apply(function () {
               $scope.post = res;
-              $scope.schema = Schemas($scope.post.category);
+              $scope.schema = Schemas.get($scope.post.category);
             });
           }
         });
       } else {
-        var schema = Schemas($routeParams.category);
+        var schema = Schemas.get($routeParams.category);
         $scope.schema = schema;
-        $scope.posts = {
+        $scope.defaults = {
           category: $routeParams.category
         };
       }

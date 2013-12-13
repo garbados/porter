@@ -1,12 +1,14 @@
 module.exports = function (app) {
   app.controller('NavCtrl', [
-    '$scope', 'Posts',
-    function ($scope, Posts) {
+    '$scope', 'Posts', 'Schemas',
+    function ($scope, Posts, Schemas) {
       $scope.clear = function clear () {
         if (confirm('Are you sure you want to clear your local data?')) {
           PouchDB.destroy('porter');
         } 
       };
+
+      $scope.schemas = Schemas.all();
 
       Posts.allTags(function (err, tags) {
         if (err) {
