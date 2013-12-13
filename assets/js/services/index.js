@@ -4,7 +4,6 @@ var plugins = [
   require('./markdown'),
   require('./autocomplete'),
   require('./summary'),
-  require('./paginator'),
   require('./schemas'),
   require('./singularize')
 ];

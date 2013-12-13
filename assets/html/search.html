@@ -4,7 +4,7 @@
     <form>
       <div class="form-group">
         <label>Search</label>
-        <input class="form-control" type="text" ng-model="querystring">
+        <input class="form-control" type="text" ng-model="querystring" ng-change="search(querystring)">
       </div>
       <button class="btn btn-info" ng-click="search(querystring)">Search</button>
     </form>

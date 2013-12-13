@@ -74,24 +74,9 @@ module.exports = function (app) {
         return results;
       }
 
-      function allTags (done) {
+      function _allPosts(query, done) {
         Pouch.query({
-          map: function (doc) {
-            if (doc.tags) {
-              doc
-                .tags
-                .split(',')
-                .filter(function (tag) {
-                  return tag;
-                })
-                .map(function (tag) {
-                  return tag.trim();
-                })
-                .forEach(function (tag) {
-                  emit(tag, null);
-                });
-            }
-          },
+          map: query,
           reduce: '_count'
         }, {
           group: true
@@ -99,62 +84,46 @@ module.exports = function (app) {
           if (err) {
             done(err);
           } else {
-            var tags = res.rows
-                  .sort(function (a, b) {
-                    return b.value - a.value;
-                  });
+            var tags = res.rows;
 
             done(null, tags);
           }
         });
       }
 
-      function allCategories (done) {
-        Pouch.query({
-          map: function (doc) {
-            if (doc.category) {
-              emit(doc.category, null);
-            }
-          },
-          reduce: '_count'
-        }, {
-          group: true
-        }, function (err, res) {
-          if (err) {
-            done(err);
-          } else {
-            var categories = res.rows
-                  .sort(function (a, b) {
-                    return b.value - a.value;
-                  });
-
-            done(null, categories);
+      function allTags (done) {
+        _allPosts(function (doc) {
+          if (doc.tags) {
+            doc
+              .tags
+              .split(',')
+              .filter(function (tag) {
+                return tag;
+              })
+              .map(function (tag) {
+                return tag.trim();
+              })
+              .forEach(function (tag) {
+                emit(tag, null);
+              });
           }
-        });
+        }, done);
+      }
+
+      function allCategories (done) {
+        _allPosts(function (doc) {
+          if (doc.category) {
+            emit(doc.category, null);
+          }
+        }, done);
       }
 
       function allAuthors (done) {
-        Pouch.query({
-          map: function (doc) {
-            if (doc.author) {
-              emit(doc.author, null);
-            }
-          },
-          reduce: '_count'
-        }, {
-          group: true
-        }, function (err, res) {
-          if (err) {
-            done(err);
-          } else {
-            var authors = res.rows
-                  .sort(function (a, b) {
-                    return b.value - a.value;
-                  });
-
-            done(null, authors);
+        _allPosts(function (doc) {
+          if (doc.author) {
+            emit(doc.author, null);
           }
-        });
+        }, done);
       }
 
       function getTags (tag, done) {
@@ -178,9 +147,6 @@ module.exports = function (app) {
               dedupe(res.rows, 'id')
               .map(function (row) {
                 return row.doc;
-              })
-              .sort(function (a, b) {
-                return b.created_at - a.created_at;
               });
 
             done(null, posts);
@@ -206,9 +172,6 @@ module.exports = function (app) {
               res.rows
               .map(function (row) {
                 return row.doc;
-              })
-              .sort(function (a, b) {
-                return b.created_at - a.created_at;
               });
 
             done(null, posts);
@@ -234,9 +197,6 @@ module.exports = function (app) {
               res.rows
               .map(function (row) {
                 return row.doc;
-              })
-              .sort(function (a, b) {
-                return b.created_at - a.created_at;
               });
 
             done(null, authors);
@@ -251,8 +211,6 @@ module.exports = function (app) {
           } else {
             done(null, res.rows.map(function (row) {
               return row.doc;
-            }).sort(function (a, b) {
-              return b.created_at - a.created_at;
             }));
           }
         };

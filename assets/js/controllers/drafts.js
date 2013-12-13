@@ -1,19 +1,18 @@
 module.exports = function (app) {
-  app.controller('DraftCtrl', [
-    '$scope', 'Posts', 'Paginator',
-    function ($scope, Posts, Paginator) {
-      $scope.posts = [];
+  app.controller('RecentCtrl', [
+    '$scope', 'Posts',
+    function ($scope, Posts) {
+      $scope.title = "Drafts";
+      
+      $scope.limit = 10;
+      $scope.next = function () {
+        $scope.limit += 10;
+      };
 
-      Paginator(Posts.drafts, 20, function (err, pages) {
+      Posts.drafts(function (err, posts) {
         if (err) throw err;
         $scope.$apply(function () {
-          $scope.hasMore = pages.hasMore;
-
-          $scope.next = function () {
-            $scope.posts = $scope.posts.concat.apply($scope.posts, pages.next());
-          };
-
-          $scope.next();
+          $scope.posts = posts;
         });
       });
     }

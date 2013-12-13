@@ -2,6 +2,11 @@ module.exports = function (app) {
   app.controller('SearchCtrl', [
     '$scope', 'Posts',
     function ($scope, Posts) {
+      $scope.limit = 10;
+      $scope.next = function () {
+        $scope.limit += 10;
+      };
+
       Posts.posts(function (err, res) {
         if (err) {
           console.trace(err);

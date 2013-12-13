@@ -21,11 +21,11 @@
     </li>
   </ul>
   <hr>
-  <div ng-repeat="category in categories">
+  <div ng-repeat="category in categories | orderBy:'value':true ">
     <a href="#/{{ category.key }}">@{{ category.key }} ({{ category.value }})</a>
   </div>
   <hr>
-  <div ng-repeat="tag in tags">
+  <div ng-repeat="tag in tags | orderBy:'value':true ">
     <a href="#/tag/{{ tag.key }}">#{{ tag.key }} ({{ tag.value }})</a>
   </div>
 </div>
