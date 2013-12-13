@@ -10,17 +10,10 @@ module.exports = function (grunt) {
         'assets/js/**/*.js'
       ]
     },
-    less: {
-      dist: {
-        files: {
-          'dist/css/bundle.css': 'assets/css/bootstrap.less'
-        }
-      }
-    },
     cssmin: {
       minify: {
         expand: true,
-        cwd: 'dist/css/',
+        cwd: 'lib/bootstrap/',
         src: ['*.css', '!*.min.css'],
         dest: 'dist/css/',
         ext: '.min.css'
@@ -62,8 +55,8 @@ module.exports = function (grunt) {
             filter: 'isFile'
           }, {
             expand: true,
-            cwd: 'assets/fonts/',
-            src: ['*'],
+            cwd: 'lib/bootstrap/',
+            src: ['*.eot', '*.svg', '*.ttf', '*.woff'],
             dest: 'dist/fonts/',
             filter: 'isFile'
           }, {
@@ -130,7 +123,6 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'jshint',
     'bower',
-    'less',
     'cssmin',
     'concat',
     'copy',
