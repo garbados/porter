@@ -128,18 +128,18 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', [
-    'bower',
     'jshint',
+    'bower',
     'less',
     'cssmin',
     'concat',
     'copy',
-    'browserify',
-    'uglify'
+    'browserify'
   ]);
 
   grunt.registerTask('deploy', [
     'build',
+    'uglify',
     'mkcouchdb',
     'couchapp'
   ]);

@@ -4,6 +4,7 @@ module.exports = function (app) {
     function ($scope, Posts, Schemas) {
       $scope.clear = function clear () {
         if (confirm('Are you sure you want to clear your local data?')) {
+          // TODO this throws "database is closing" :(
           PouchDB.destroy('porter');
         } 
       };

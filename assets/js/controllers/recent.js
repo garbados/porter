@@ -10,6 +10,7 @@ module.exports = function (app) {
       };
 
       Posts.published(function (err, posts) {
+        console.log(err);
         if (err) throw err;
         $scope.$apply(function () {
           $scope.posts = posts;

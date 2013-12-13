@@ -10,7 +10,7 @@
             type="text"
             typeahead="obj for obj in typeahead[field.model] | filter:$viewValue"
             ng-model="post[field.model]"
-            ng-init="post[field.model] = defaults[field.model]">
+            ng-init="post[field.model] = post[field.model] || defaults[field.model]">
           <textarea 
             ng-switch-when="textarea"
             class="form-control"

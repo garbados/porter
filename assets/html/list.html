@@ -1,6 +1,8 @@
 <h1>{{ title }}</h1>
 
-<div ng-hide="posts.length" class="row">
+<h2 ng-show="posts === undefined">Loading...</h2>
+
+<div ng-hide="posts.length || posts === undefined" class="row">
   <div class="col-md-12">
     <h1>No results</h1>
     <p>Why not <a href="#/new">make some?</a></p>

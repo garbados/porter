@@ -49,31 +49,6 @@ module.exports = function (app) {
         }
       }
 
-      function dedupe (array, field) {
-        var keys = {},
-            results = [];
-
-        array.forEach(function (obj) {
-          if (field) {
-            if (obj[field] in keys) {
-              // do nothing
-            } else {
-              keys[obj[field]] = true;
-              results.push(obj);
-            }
-          } else {
-            if (obj in keys) {
-              // do nothing
-            } else {
-              keys[obj] = true;
-              results.push(obj);
-            }
-          }
-        });
-
-        return results;
-      }
-
       function _allPosts(query, done) {
         Pouch.query({
           map: query,
@@ -126,30 +101,57 @@ module.exports = function (app) {
         }, done);
       }
 
-      function getTags (tag, done) {
+      function getTags (tags, done) {
+        if (typeof(tags) === 'string') {
+          tags = tags.split(',').filter(function (tag) {
+            return tag;
+          });
+        }
+
         Pouch.query({
           map: function (doc) {
             if (doc.tags) {
-              doc.tags.split(',').forEach(function (tag) {
-                tag = tag.trim();
-                emit(tag, null);
+              var tags = doc.tags.split(',').map(function (tag) {
+                return tag.trim();
+              }).filter(function (tag) {
+                return tag;
+              });
+              tags.forEach(function (tag) {
+                emit(tag, tags);
               });
             }
           }
         }, {
           include_docs: true,
-          key: tag
+          keys: tags
         }, function (err, res) {
           if (err) {
             done(err);
           } else {
-            var posts = 
-              dedupe(res.rows, 'id')
-              .map(function (row) {
-                return row.doc;
-              });
+            var uniq_posts = {},
+                posts = res.rows
+                  // remove all posts which don't feature all tags
+                  .filter(function (row) {
+                    var results = [];
+                    tags.forEach(function (tag) {
+                      results.push(row.value.indexOf(tag));
+                    });
+                    return results.indexOf(-1) === -1;
+                  })
+                  // return only the tag doc itself
+                  .map(function (row) {
+                    return row.doc;
+                  });
 
-            done(null, posts);
+            posts.forEach(function (post) {
+              uniq_posts[post._id] = post;
+            });
+
+            var results = Object.keys(uniq_posts).map(function (id) {
+              return uniq_posts[id];
+            });
+
+            done(null, results);
           }
         });
       }
