@@ -131,7 +131,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('deploy', [
     'build',
-    'uglify',
+    // 'uglify', // currently breaks things :(
     'mkcouchdb',
     'couchapp'
   ]);

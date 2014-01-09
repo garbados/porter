@@ -1,5 +1,5 @@
 module.exports = function (app) {
-  app.controller('RecentCtrl', [
+  app.controller('DraftCtrl', [
     '$scope', 'Posts',
     function ($scope, Posts) {
       $scope.title = "Drafts";
