@@ -8,7 +8,6 @@
             ng-switch-when="input"
             class="form-control"
             type="text"
-            typeahead="obj for obj in typeahead[field.model] | filter:$viewValue"
             ng-model="post[field.model]"
             ng-init="post[field.model] = post[field.model] || defaults[field.model]">
           <textarea 
@@ -37,6 +36,13 @@
         </div>
       </div>
       
+      <div>
+        <label>Status: {{published()}}</label>
+      </div>
+      <div>
+        <label>Created At: {{createdAt()}}</label>
+      </div>
+
       <button class="btn btn-info" ng-click="draft(post)">Draft</button>
       <button class="btn btn-primary" ng-click="publish(post)">Publish</button>
       <button class="btn pull-right" ng-click="delete(post)" ng-show="post._id">Delete</button>

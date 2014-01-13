@@ -54,6 +54,31 @@ module.exports = function (app) {
         };
       }
 
+      $scope.published = function () {
+        var status = "Not Published";
+        if ($scope.post) {
+          if (typeof $scope.post.published != "undefined"){
+            switch ($scope.post.published){
+              case true: 
+              status = "Published";
+              break;
+            }
+          }
+          return status;
+        }
+      };
+
+      $scope.createdAt = function () {
+        var status = "Hit Publish";
+        if ($scope.post) {
+          if (typeof $scope.post.created_at != "undefined"){
+            var date = new Date($scope.post.created_at);
+            status = date.toString();
+          }
+          return status;
+        }
+      };
+
       Posts.allAuthors(addTypeahead('author'));
       Posts.allCategories(addTypeahead('category'));
 
