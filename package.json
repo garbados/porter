@@ -4,7 +4,7 @@
   "description": "Diary using PouchDB.",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "./node_modules/.bin/karma start"
+    "test": "./node_modules/.bin/grunt build && ./node_modules/.bin/karma start"
   },
   "keywords": [
     "blog",
@@ -39,6 +39,7 @@
     "karma-requirejs": "~0.2.1",
     "karma-coffee-preprocessor": "~0.1.2",
     "karma-phantomjs-launcher": "~0.1.1",
-    "karma": "~0.10.9"
+    "karma": "~0.10.9",
+    "grunt-cli": "~0.1.13"
   }
 }
