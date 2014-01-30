@@ -1,9 +1,5 @@
 describe('categories', function() {
-  var element;
-
-  beforeEach(inject(function (CategoryCtrl) {
-    console.log(arguments);
-  }));
+  // body...
 });
 
 describe('drafts', function() {
