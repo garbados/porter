@@ -127,6 +127,11 @@ module.exports = function (grunt) {
         db: '<%= config.db %>',
         app: '<%= config.app %>'
       }
+    },
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js'
+      }
     }
   });
 
@@ -153,5 +158,10 @@ module.exports = function (grunt) {
     'build',
     'connect',
     'watch'
+  ]);
+
+  grunt.registerTask('test', [
+    'build',
+    'karma'
   ]);
 };
