@@ -1,3 +1,3 @@
-module.exports = function (app) {
-  app.constant('Pouch', new PouchDB('porter'));
-};
+angular
+.module('services')
+.constant('Pouch', new PouchDB('porter'));

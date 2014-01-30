@@ -29,6 +29,16 @@ module.exports = function (grunt) {
             'lib/angular-*/*.js'
           ]
         }
+      },
+      app: {
+        files: {
+          'dist/js/bundle.js': [
+            'assets/js/config/*.js',
+            'assets/js/services/*.js',
+            'assets/js/controllers/*.js',
+            'assets/js/app.js'
+          ]
+        }
       }
     },
     bower: {
@@ -125,13 +135,16 @@ module.exports = function (grunt) {
     'bower',
     'cssmin',
     'concat',
-    'copy',
-    'browserify'
+    'copy'
+  ]);
+
+  grunt.registerTask('prod', [
+    'build',
+    'uglify'
   ]);
 
   grunt.registerTask('deploy', [
-    'build',
-    // 'uglify', // currently breaks things :(
+    'prod',
     'mkcouchdb',
     'couchapp'
   ]);
