@@ -1,5 +1,7 @@
 # Porter
 
+[![Build Status](https://travis-ci.org/garbados/porter.png?branch=master)](https://travis-ci.org/garbados/porter)
+
 [demo]: http://porter.maxthayer.org
 [peerpouch]: https://github.com/natevw/PeerPouch
 [pouchsearch]: https://github.com/pouchdb/pouchdb-search
