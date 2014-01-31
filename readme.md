@@ -94,19 +94,14 @@ There is no other post with the identifier `why-replication-is-awesome`, but `bl
 
 :D
 
-## Roadmap
+## Contribute
 
-In approximate order of priority:
+Looking for ways to get involved? Yay! Try these on for size:
 
-* Post Types: allow custom metadata to define the fields different post categories ask for.
-* Social: Presently, Porter is just a diary. Using peer-to-peer protocols like WebRTC, we can allow Porter instances to share data amongst ad-hoc social networks -- like a decentralized social network.
-* Login automatically: Save credentials so that your Porter syncs with designated remotes automatically.
-* Better Search: Use [Pouch-Search][pouchsearch] to give Porter Lucene-style querying.
-* Imitate Medium: They do content well. Stand on the shoulders of giants.
-* Error reporting: When things go wrong, Porter logs stacktraces, but generally hides them from the UI. That's dumb.
-* Tests: Good for the project, good for the soul. Bonus points for coverage.
+* Check out the [waffleboard](https://waffle.io/garbados/porter), where we track issues.
+* Clone the project, and do `grep -r TODO assets/{js,html}` to see what's left undone.
 
-To find things to do, try `grep -r TODO assets/{js,html}`. I built most of this without internet access, so I left plenty undone for want of external documentation.
+You're awesome!
 
 ## License
 
