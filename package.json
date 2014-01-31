@@ -39,6 +39,10 @@
     "grunt": "~0.4.2",
     "grunt-cli": "~0.1.13",
     "grunt-ngmin": "0.0.3",
-    "grunt-karma": "~0.6.2"
+    "grunt-karma": "~0.6.2",
+    "karma-coverage": "~0.1.5"
+  },
+  "dependencies": {
+    "coveralls": "~2.7.0"
   }
 }

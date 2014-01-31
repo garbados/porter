@@ -16,8 +16,10 @@ module.exports = function(config) {
     files: [
       'dist/js/vendor.js',
       'dist/js/bundle.js',
-      'tests/*.js',
-      'tests/**/*.js'
+      'tests/lib/*.js',
+      'tests/unit/*.js',
+      'tests/midway/*.js',
+      'tests/e2e/*.js'
     ],
 
 
@@ -29,8 +31,19 @@ module.exports = function(config) {
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
+    preprocessors: {
+      // source files, that you wanna generate coverage for
+      // do not include tests or libraries
+      // (these files will be instrumented by Istanbul)
+      'dist/js/*.js': ['coverage']
+    },
+
+    coverageReporter: {
+      type : 'lcovonly',
+      dir: 'coverage/',
+    },
 
     // web server port
     port: 9876,

@@ -144,12 +144,13 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('prod', [
+    // TODO ensure this breaks nothing
     'build',
     'uglify'
   ]);
 
   grunt.registerTask('deploy', [
-    'prod',
+    'build',
     'mkcouchdb',
     'couchapp'
   ]);
