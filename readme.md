@@ -30,7 +30,7 @@ To deploy your own Porter:
 
     git clone git@github.com:garbados/porter.git
     cd porter
-    npm install && bower install
+    npm install
     grunt server
 
 Your very own porter is now live at <http://localhost:5000>.
