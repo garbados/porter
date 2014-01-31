@@ -1,6 +1,8 @@
 # Porter
 
 [![Build Status](https://travis-ci.org/garbados/porter.png?branch=master)](https://travis-ci.org/garbados/porter)
+[![Coverage Status](https://coveralls.io/repos/garbados/porter/badge.png?branch=master)](https://coveralls.io/r/garbados/porter?branch=master)
+[![Stories in Ready](https://badge.waffle.io/garbados/porter.png?label=ready)](http://waffle.io/garbados/porter)
 
 [demo]: http://porter.maxthayer.org
 [peerpouch]: https://github.com/natevw/PeerPouch
