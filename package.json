@@ -5,7 +5,8 @@
   "main": "Gruntfile.js",
   "scripts": {
     "test": "./node_modules/.bin/grunt test",
-    "start": "./node_modules/.bin/grunt server"
+    "start": "./node_modules/.bin/grunt server",
+    "fulltest": "git clean -dxf && npm install && npm test"
   },
   "keywords": [
     "blog",
