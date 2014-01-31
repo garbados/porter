@@ -103,6 +103,20 @@ Looking for ways to get involved? Yay! Try these on for size:
 
 You're awesome!
 
+## Tests
+
+To run tests, try this:
+
+    npm run-script fulltest
+
+...which just does this:
+
+    git clean -dxf    # remove files git doesn't care about
+    npm install       # installs dependencies
+    npm test          # runs the test suite
+
+If anything goes wrong, [file an issue](https://github.com/garbados/porter/issues/new)!
+
 ## License
 
 [MIT][mit], brolaf.
