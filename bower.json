@@ -30,16 +30,12 @@
     "angular-slugify": "~1.0.0",
     "pouchdb": "~1.0.0",
     "showdown": "~0.3.1",
-    "angular-strap": "~2.0.0"
+    "angular-bootstrap": "~0.10.0"
   },
   "resolutions": {
-    "angular": "~1.2.4"
+    "angular": "~1.2.9"
   },
   "exportsOverride": {
-    "angular-bootstrap": {
-      "": "src/*/*.js",
-      "template": "template"
-    },
     "showdown": {
       "": "src/showdown.js"
     }
