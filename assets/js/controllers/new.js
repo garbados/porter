@@ -48,8 +48,8 @@ angular
         if (err) {
           console.trace (err);
         } else {
-          $scope.typeahead[field] = res.map(function (row) {
-            return row.key;
+          $scope.$apply(function () {
+            $scope.typeahead[field] = res;
           });
         }
       };

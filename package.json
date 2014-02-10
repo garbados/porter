@@ -6,7 +6,8 @@
   "scripts": {
     "test": "./node_modules/.bin/grunt test",
     "start": "./node_modules/.bin/grunt server",
-    "fulltest": "git clean -dxf && npm install && npm test"
+    "reset": "git clean -dxf && npm install",
+    "fulltest": "npm run-script reset && npm test"
   },
   "keywords": [
     "blog",
