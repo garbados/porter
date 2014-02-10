@@ -44,6 +44,8 @@ angular
 
     $scope.typeahead = {};
     function addTypeahead (field) {
+      $scope.typeahead[field] = [];
+
       return function (err, res) {
         if (err) {
           console.trace (err);

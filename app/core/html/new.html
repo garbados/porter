@@ -3,12 +3,12 @@
     <form name="post">
       <div ng-repeat="field in schema.fields" class="form-group">
         <label>{{ field.label }}</label>
-        <div ng-switch="field.type">
+        <div ng-switch="field.type" ng-init="typeahead[field.model] = []">
           <input
             ng-switch-when="input"
             class="form-control"
             type="text"
-            typeahead="obj for obj in typeahead[field.model] | filter:$viewValue"
+            typeahead="obj.key for obj in typeahead[field.model] | filter:$viewValue"
             ng-model="post[field.model]"
             ng-init="post[field.model] = post[field.model] || defaults[field.model]">
           <textarea 
