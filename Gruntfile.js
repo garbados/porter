@@ -7,7 +7,7 @@ module.exports = function (grunt) {
     jshint: {
       assets: [
         'Gruntfile.js',
-        'assets/js/**/*.js'
+        'app/core/js/**/*.js'
       ]
     },
     cssmin: {
@@ -30,14 +30,9 @@ module.exports = function (grunt) {
           ]
         }
       },
-      app: {
+      core: {
         files: {
-          'dist/js/bundle.js': [
-            'assets/js/config/*.js',
-            'assets/js/services/*.js',
-            'assets/js/controllers/*.js',
-            'assets/js/app.js'
-          ]
+          'dist/js/bundle.js': ['app/**/*.js']
         }
       }
     },
@@ -59,30 +54,23 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: 'assets/html/',
+            cwd: 'app/core/html/',
             src: ['*.html'],
             dest: 'dist/',
             filter: 'isFile'
+          }, {
+            expand: true,
+            cwd: 'app/bootstrap/',
+            src: ['**/*.html'],
+            dest: 'dist/template/'
           }, {
             expand: true,
             cwd: 'lib/bootstrap/',
             src: ['*.eot', '*.svg', '*.ttf', '*.woff'],
             dest: 'dist/fonts/',
             filter: 'isFile'
-          }, {
-            expand: true,
-            cwd: 'lib/template/angular-bootstrap',
-            src: ['**'],
-            dest: 'dist/template/'
           }
         ]
-      }
-    },
-    browserify: {
-      dist: {
-        files: {
-          'dist/js/bundle.js': ['assets/js/app.js']
-        }
       }
     },
     connect: {
@@ -98,19 +86,15 @@ module.exports = function (grunt) {
         livereload: 5000
       },
       scripts: {
-        files: ['assets/js/**/*.js'],
-        tasks: ['jshint', 'browserify'],
+        files: ['app/**/*.js'],
+        tasks: ['jshint', 'concat:core'],
       },
       vendor: {
         files: ['lib/*/*.js'],
         tasks: ['concat:bower']
       },
-      css: {
-        files: ['assets/css/*.less'],
-        tasks: ['less', '']
-      },
       html: {
-        files: ['assets/html/*.html'],
+        files: ['app/**/*.html'],
         tasks: ['copy']
       }
     },
