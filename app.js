@@ -2,7 +2,7 @@ var couchapp = require('couchapp')
   , path = require('path');
 
 ddoc = {
-  _id: '_design/app',
+  _id: '_design/porter',
   views: {},
   lists: {},
   shows: {},

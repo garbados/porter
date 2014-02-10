@@ -4,9 +4,17 @@ node_js:
 - '0.11'
 - '0.10'
 
+env:
+  global:
+    - secure: "cx+6Wj1EB4ilP2dgSy38AoDjwtPyucuCAOQ0jlVdBF63KqXjFdUkFjUh0he2TSvFz0s0SDFMnGN4hUW9dKjBxbFdj9Y6FVZXyJLYZqoL711RjI3F9ZjIVpWdFXjELdIlJvEknMDQsXC6XkVXpNFlYS6r/uu8y4WMeraTppBPFHE="
+
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 
 after_success:
+  # post coverage
   - "find coverage -type f -name lcov.info -print0 | head -n 1 | xargs -0 cat | ./node_modules/coveralls/bin/coveralls.js"
+  # update demo
+  - npm install -g couchapp
+  - ./.deploy.sh $DESTINATION
