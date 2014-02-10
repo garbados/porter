@@ -1,21 +1,25 @@
-<div class="row">
+<div class="row" ng-init="schema = Schemas.get(post.category)">
   <div class="col-md-12">
     <h1>
-      <a href="#/{{ post.category || 'post' }}/{{ post._id }}" ng-bind-html="post.title"></a>
+      <a href="#/{{ category || 'post' }}/{{ post._id }}" ng-bind-html="post[schema.primary]"></a>
     </h1>
-    <div ng-bind-html="post.text | summary | markdown"></div>
-    <p>
-      <a href="#/{{ post.category || 'post' }}/{{ post._id }}/edit">Edit</a>
-      <span ng-show="post.category">
-         | 
-        <a href="#/{{ post.category }}">@{{ post.category }}</a>
-      </span>
-      <span ng-show="post.tags.length">
-         |
-        <span ng-repeat="tag in post.tags.split(',')">
-          <a ng-show="tag" href="#/tag/{{ tag.trim() }}">#{{ tag.trim() }}</a>
-        </span>
-      </span>
-    </p>
+    <div ng-repeat="field in schema.fields">
+      <div ng-switch="field.model" ng-hide="field.model === schema.primary">
+        <img ng-src="{{ post.src }}" ng-switch-when="src" title="{{ post[schema.primary] }}">
+        <p>
+          <a ng-href="{{ post.href }}" ng-switch-when="href">{{ post.href }}</a>
+        </p>
+        <div ng-bind-html="post.text | summary | markdown" ng-switch-when="text"></div>
+        <p ng-switch-when="author">
+          <span ng-show="post.author">By {{ post.author }}</span>
+        </p>
+        <p ng-switch-when="category">
+          <a ng-href="#/{{ post.category }}">@{{ post.category }}</a>
+        </p>
+        <p ng-switch-when="tags">
+          <a ng-repeat="tag in post.tags.split(',')" ng-href="#/tag/{{ tag.trim() }}">#{{ tag.trim() }} </a>
+        </p>
+      </div>
+    </div>
   </div>
 </div>

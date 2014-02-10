@@ -14,8 +14,14 @@ angular
         return Object.keys(schemas);
       },
       get: function (type) {
-        return schemas[type] || schemas.posts;
+        return schemas[type] || schemas.post;
       }
     };
   };
-});
+})
+.run([
+  '$rootScope', 'Schemas',
+  function ($rootScope, Schemas) {
+    $rootScope.Schemas = Schemas;
+  }
+]);

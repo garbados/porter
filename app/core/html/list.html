@@ -11,6 +11,9 @@
 
 <div ng-repeat="post in posts | orderBy:'created_at':true | limitTo:limit">
   <div ng-include="'summary.html'"></div>
+  <p>
+    <a href="#/{{ post.type }}/{{ post._id }}">Edit</a>
+  </p>
 </div>
 
 <div ng-show="limit < posts.length">

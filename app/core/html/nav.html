@@ -3,6 +3,7 @@
     <li>
       <a href="#/">Home</a>
     </li>
+    <hr>
     <li ng-repeat="schema in schemas">
       <a ng-href="#/new/{{ schema }}">New {{ schema | singularize }}</a>
     </li>

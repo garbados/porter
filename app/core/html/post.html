@@ -1,28 +1,32 @@
-<div class="row">
+<div class="row" ng-init="schema = Schemas.get(post.category)">
   <div class="col-md-12">
     <h1>
-      <a href="#/{{ category || 'post' }}/{{ post._id }}" ng-bind-html="post.title"></a>
+      <a href="#/{{ category || 'post' }}/{{ post._id }}" ng-bind-html="post[schema.primary]"></a>
     </h1>
-    <div ng-bind-html="post.text | markdown"></div>
+    <div ng-repeat="field in schema.fields">
+      <div ng-switch="field.model" ng-hide="field.model === schema.primary">
+        <img ng-src="post.src" ng-switch-when="src" title="{{ post[schema.primary] }}">
+        <p>
+          <a ng-href="post.href" ng-switch-when="href">{{ post.href }}</a>
+        </p>
+        <div ng-bind-html="post.text | markdown" ng-switch-when="text"></div>
+        <p ng-switch-when="author">
+          <span ng-show="post.author">By {{ post.author }}</span>
+        </p>
+        <p ng-switch-when="category">
+          <a href="#/{{ post.category }}">@{{ post.category }}</a>
+        </p>
+        <p ng-switch-when="tags">
+          <a ng-repeat="tag in post.tags.split(',')" href="#/tag/{{ tag.trim() }}">#{{ tag.trim() }} </a>
+        </p>
+      </div>
+    </div>
     <hr>
     <p>
-      <span ng-show="post.author">
-        By {{ post.author }}
-         |
-      </span>
       Published {{ post.created_at | date }}
       <span ng-show="post.modified_at">
         |
         Edited {{ post.modified_at | date }}
-      </span>
-    </p>
-    <p>
-      <a href="#/{{ category || 'post' }}/{{ post._id }}/edit">Edit</a>
-       |
-      <a href="#/{{ post.category }}">@{{ post.category }}</a>
-      <span ng-show="post.tags.length">
-         |
-        <a ng-repeat="tag in post.tags.split(',')" href="#/tag/{{ tag.trim() }}">#{{ tag.trim() }} </a>
       </span>
     </p>
   </div>

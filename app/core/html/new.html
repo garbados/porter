@@ -1,6 +1,9 @@
 <div class="row">
   <div class="col-md-12">
-    <form name="post">
+    <header>
+      <h1>New {{ schema.type }}</h1>
+    </header>
+    <form ng-init="post = post || {}">
       <div ng-repeat="field in schema.fields" class="form-group">
         <label>{{ field.label }}</label>
         <div ng-switch="field.type" ng-init="typeahead[field.model] = []">
