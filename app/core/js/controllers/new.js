@@ -7,10 +7,9 @@ angular
   function ($scope, Pouch, Posts, $location, $routeParams, Slug, Schemas) {
 
     // get schema
-    $scope.schema = Schemas.get($routeParams.category || 'post');
-    $scope.defaults = {
-      category: $routeParams.category
-    };
+    $scope.schema = Schemas.get($routeParams.type || 'post');
+    $scope.post = { type: $scope.schema.name };
+    $scope.defaults = {}; // add any default values here
 
     // get doc, if it exists
     if ($routeParams.id) {
@@ -20,7 +19,7 @@ angular
         } else {
           $scope.$apply(function () {
             $scope.post = res;
-            $scope.schema = Schemas.get($scope.post.category);
+            $scope.schema = Schemas.get($scope.post.type);
           });
         }
       });
@@ -72,10 +71,12 @@ angular
     }
 
     $scope.draft = function (post) {
+      post.type = $scope.schema.name;
       Posts.saveDraft(post, redirect('/drafts'));
     };
 
     $scope.publish = function (post) {
+      post.type = $scope.schema.name;
       Posts.save(post, function (err, res) {
         redirect('/recent/' + res.id)(err);
       });

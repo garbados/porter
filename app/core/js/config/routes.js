@@ -23,7 +23,7 @@ angular
       controller: 'NewCtrl',
       templateUrl: 'new.html'
     })
-    .when('/new/:category', {
+    .when('/new/:type', {
       controller: 'NewCtrl',
       templateUrl: 'new.html'
     })

@@ -1,4 +1,4 @@
-<div class="row" ng-init="schema = Schemas.get(post.category)">
+<div class="row" ng-init="schema = Schemas.get(post.type)">
   <div class="col-md-12">
     <h1>
       <a href="#/{{ category || 'post' }}/{{ post._id }}" ng-bind-html="post[schema.primary]"></a>
@@ -21,5 +21,8 @@
         </p>
       </div>
     </div>
+    <p>
+      <a href="#/{{ post.type }}/{{ post._id }}/edit">Edit</a>
+    </p>
   </div>
 </div>

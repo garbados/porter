@@ -269,7 +269,6 @@ angular
       posts: getPosts,
       saveDraft: function (post, done) {
         post.published = false;
-        post.type = 'porter';
         post = update_timestamps(post);
         modify_id(post, function (err, post) {
           if (err) {
@@ -281,7 +280,6 @@ angular
       },
       save: function (post, done) {
         post.published = true;
-        post.type = 'porter';
         post = update_timestamps(post);
         modify_id(post, function (err, post) {
           if (err) {

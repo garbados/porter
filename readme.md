@@ -23,6 +23,8 @@ Here are some more features:
 * Tagging, categorization, and authorship
 * Search by text, tag, and category
 * Autocomplete author and category based on past values
+* Saves content to your browser, so you can access offline
+* To share content, sync with CouchDB or Cloudant databases
 
 Porter is under heavy development, so see the Roadmap section for upcoming features.
 
@@ -53,20 +55,44 @@ After deploying, the resultant app will live at
 
 ## Objects
 
-There is only one object: the Post. It looks like this:
+Porter has a variety of document types, detailed in the [types folder][], but here's what they have in common:
+
+[types folder]: https://github.com/garbados/porter/tree/master/app/types
 
     {
-      _id: 'how-i-made-a-million-dollars',
-      type: 'porter', // always 'porter'; used for portability
-      published: true,
-      title: 'How I Made a Million Dollars',
-      text: 'Today was my first day at the Fed managing the presses, and...',
-      category: 'blog',
-      tags: ['money', 'fed', 'silly'],
-      author: 'Yours Truly'
+      _id: 'post-url-slug',     # the URL slug used to find the post
+      type: 'post',             # hints at the document's schema
+      category: 'blog',         # or 'product', 'events', 'team', etc.
+      tags: ['herp', 'derp'],   # an unordered array of descriptors
+      author: 'Max Thayer'      # who originally authored the document
     }
 
 For the sake of ease, Porter tries to autofill these values where possible. For example, you can enter whatever for `author`, but a dropdown will let you choose from past authors.
+
+### Adding a Type
+
+Porter constructs forms and templates for different document types dynamically, so adding a type involves only a few steps:
+
+1. Add a `[type_name].js` file to `/app/types/`.
+2. Use `SchemasProvider.addSchema(type, schema)` to inject your new schema into Porter. ([example][])
+3. /dance
+
+[example]: https://github.com/garbados/porter/blob/master/app/types/post.js
+
+Schema objects look like this:
+
+    {
+      primary: 'title',     # what field is used to determine the document's URL slug
+      fields: [             # ordered array of document fields
+        {
+          label: 'Title',   # the human-readable field name
+          type: 'input',    # can be 'input', 'textarea', 'timepicker', or 'datepicker'
+          model: 'title'    # the document field name, i.e. `doc[model]`
+        }
+      ]
+    }
+
+Autocomplete rules are hardcoded currently, so there's nothing to configure there. Specifically, `author` and `category` will attempt to autocomplete.
 
 ## Routes
 
