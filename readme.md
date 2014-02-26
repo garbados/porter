@@ -141,6 +141,8 @@ To run tests, try this:
     npm install       # installs dependencies
     npm test          # runs the test suite
 
+If you don't have an internet connection, or don't want to re-download dependencies, just run `npm test`.
+
 If anything goes wrong, [file an issue](https://github.com/garbados/porter/issues/new)!
 
 ## License
