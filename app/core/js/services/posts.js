@@ -14,6 +14,10 @@ angular
     }
 
     function split_tags (post) {
+      // make array if none
+      if (!post.tags) {
+        post.tags = [];
+      }
       // duck-type determine whether tags are a string or an array
       if (post.tags.split) {
         post.tags = post.tags.split(',').map(function (tag) {
