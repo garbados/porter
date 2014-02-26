@@ -13,6 +13,17 @@ angular
       return post;
     }
 
+    function split_tags (post) {
+      // duck-type determine whether tags are a string or an array
+      if (post.tags.split) {
+        post.tags = post.tags.split(',').map(function (tag) {
+          return tag.trim();
+        }); 
+      }
+
+      return post;
+    }
+
     // if the id changes, 
     // ensure that id isn't already taken
     // and remove the old post
@@ -72,12 +83,8 @@ angular
         if (doc.tags) {
           doc
             .tags
-            .split(',')
             .filter(function (tag) {
               return tag;
-            })
-            .map(function (tag) {
-              return tag.trim();
             })
             .forEach(function (tag) {
               emit(tag, null);
@@ -104,7 +111,7 @@ angular
 
     function getTags (tags, done) {
       if (typeof(tags) === 'string') {
-        tags = tags.split(',').filter(function (tag) {
+        tags = tags.filter(function (tag) {
           return tag;
         });
       }
@@ -112,11 +119,7 @@ angular
       Pouch.query({
         map: function (doc) {
           if (doc.tags) {
-            var tags = doc.tags.split(',').map(function (tag) {
-              return tag.trim();
-            }).filter(function (tag) {
-              return tag;
-            });
+            var tags = doc.tags;
             tags.forEach(function (tag) {
               emit(tag, tags);
             });
@@ -270,6 +273,7 @@ angular
       saveDraft: function (post, done) {
         post.published = false;
         post = update_timestamps(post);
+        post = split_tags(post);
         modify_id(post, function (err, post) {
           if (err) {
             done(err);
@@ -281,6 +285,7 @@ angular
       save: function (post, done) {
         post.published = true;
         post = update_timestamps(post);
+        post = split_tags(post);
         modify_id(post, function (err, post) {
           if (err) {
             done(err);

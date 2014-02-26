@@ -71,12 +71,12 @@ angular
     }
 
     $scope.draft = function (post) {
-      post.type = $scope.schema.name;
+      post.type = $scope.schema.type;
       Posts.saveDraft(post, redirect('/drafts'));
     };
 
     $scope.publish = function (post) {
-      post.type = $scope.schema.name;
+      post.type = $scope.schema.type;
       Posts.save(post, function (err, res) {
         redirect('/recent/' + res.id)(err);
       });

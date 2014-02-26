@@ -15,6 +15,7 @@ angular
       } else {
         $scope.$apply(function () {
           $scope.post = res;
+          $scope.schema = $scope.Schemas.get(res.type);
         });
       }
     });

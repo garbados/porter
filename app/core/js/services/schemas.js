@@ -14,6 +14,7 @@ angular
         return Object.keys(schemas);
       },
       get: function (type) {
+        console.log(schemas, type);
         return schemas[type] || schemas.post;
       }
     };

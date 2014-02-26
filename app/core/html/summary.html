@@ -1,13 +1,13 @@
 <div class="row" ng-init="schema = Schemas.get(post.type)">
   <div class="col-md-12">
     <h1>
-      <a href="#/{{ category || 'post' }}/{{ post._id }}" ng-bind-html="post[schema.primary]"></a>
+      <a ng-href="#/{{ category || 'post' }}/{{ post._id }}" ng-bind-html="post[schema.primary]"></a>
     </h1>
     <div ng-repeat="field in schema.fields">
       <div ng-switch="field.model" ng-hide="field.model === schema.primary">
         <img ng-src="{{ post.src }}" ng-switch-when="src" title="{{ post[schema.primary] }}">
-        <p>
-          <a ng-href="{{ post.href }}" ng-switch-when="href">{{ post.href }}</a>
+        <p ng-switch-when="href">
+          <a ng-href="{{ post.href }}">{{ post.href }}</a>
         </p>
         <div ng-bind-html="post.text | summary | markdown" ng-switch-when="text"></div>
         <p ng-switch-when="author">
@@ -17,12 +17,12 @@
           <a ng-href="#/{{ post.category }}">@{{ post.category }}</a>
         </p>
         <p ng-switch-when="tags">
-          <a ng-repeat="tag in post.tags.split(',')" ng-href="#/tag/{{ tag.trim() }}">#{{ tag.trim() }} </a>
+          <a ng-repeat="tag in post.tags" ng-href="#/tag/{{ tag }}">#{{ tag }} </a>
         </p>
       </div>
     </div>
     <p>
-      <a href="#/{{ post.type }}/{{ post._id }}/edit">Edit</a>
+      <a ng-href="#/{{ post.type }}/{{ post._id }}/edit">Edit</a>
     </p>
   </div>
 </div>
