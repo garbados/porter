@@ -10,9 +10,21 @@ ddoc = {
     from: '/',
     to: '/index.html'
   }, {
+    from: '/api/*',
+    to: '../../*'
+  }, {
     from: '*',
     to: '/*'
-  }]
+  }],
+  filters: {
+    docs: function (doc, req) {
+      if (doc.type) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
 };
 
 couchapp.loadAttachments(ddoc, path.join(__dirname, 'dist'));

@@ -25,6 +25,7 @@ Here are some more features:
 * Autocomplete author and category based on past values
 * Saves content to your browser, so you can access offline
 * To share content, sync with CouchDB or Cloudant databases
+* Automatically syncs with the database from which the app is deployed
 
 Porter is under heavy development, so see the Roadmap section for upcoming features.
 
