@@ -10,11 +10,18 @@ angular
 
     $scope.title = '@' + $routeParams.category;
 
-    Posts.categories($routeParams.category, function (err, res) {
+    Posts
+    .search({
+      category: $routeParams.category
+    }, function (err, res) {
       if (err) throw err;
       $scope.$apply(function () {
-        if (res.length) {
-          $scope.posts = res; 
+        var docs = res.rows.map(function (row) {
+          return row.doc;
+        });
+
+        if (docs.length) {
+          $scope.posts = docs; 
         } else {
           // backwards compatibility for top-level-pages
           $location.path('/post/' + $routeParams.category);

@@ -10,9 +10,16 @@ angular
       $scope.limit += 10;
     };
 
-    Posts.drafts(function (err, posts) {
+    Posts
+    .search({
+      published: false
+    }, function (err, res) {
       if (err) throw err;
       $scope.$apply(function () {
+        var posts = res.rows.map(function (row) {
+          return row.doc;
+        });
+        
         $scope.posts = posts;
       });
     });

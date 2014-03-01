@@ -8,7 +8,7 @@ angular
       $scope.limit += 10;
     };
 
-    Posts.posts(function (err, res) {
+    Posts.all(function (err, res) {
       if (err) {
         console.trace(err);
       } else {

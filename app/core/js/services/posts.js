@@ -45,7 +45,7 @@ angular
               var should_keep = true;
               
               for (var key in query) {
-                if (query[key] !== row.doc[key]) {
+                if (String(query[key]).indexOf(row.doc[key]) === -1) {
                   should_keep = false;
                   break;
                 }
@@ -92,8 +92,9 @@ angular
 
               done(null, result);
             }
-          });},
-        category: function (done) {
+          });
+        },
+        categories: function (done) {
           all(function (err, res) {
             if (err) {
               done(err);

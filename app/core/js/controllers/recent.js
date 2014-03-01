@@ -10,7 +10,10 @@ angular
       $scope.limit += 10;
     };
 
-    Posts.published(function (err, posts) {
+    Posts
+    .search({
+      published: true
+    }, function (err, posts) {
       if (err) throw err;
       $scope.$apply(function () {
         $scope.posts = posts;

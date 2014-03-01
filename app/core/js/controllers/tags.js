@@ -14,10 +14,16 @@ angular
       return '#' + tag;
     }).join(' ');
 
-    Posts.tags($routeParams.tag, function (err, res) {
-      if (err) throw err;
+    Posts
+    .search({
+      tags: $routeParams.tag
+    }, function (err, res) {
+      var posts = res.rows.map(function (row) {
+        return row.doc;
+      });
+
       $scope.$apply(function () {
-        $scope.posts = res;
+        $scope.posts = posts;
       });
     });
   }

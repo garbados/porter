@@ -12,7 +12,9 @@ angular
 
     $scope.schemas = Schemas.all();
 
-    Posts.allTags(function (err, tags) {
+    Posts
+    .count
+    .tags(function (err, tags) {
       if (err) {
         console.trace(err);
       } else {
@@ -22,7 +24,9 @@ angular
       }
     });
 
-    Posts.allCategories(function (err, categories) {
+    Posts
+    .count
+    .categories(function (err, categories) {
       if (err) {
         console.trace(err);
       } else {

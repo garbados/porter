@@ -51,8 +51,8 @@ angular
       };
     }
 
-    Posts.allAuthors(addTypeahead('author'));
-    Posts.allCategories(addTypeahead('category'));
+    Posts.count.authors(addTypeahead('author'));
+    Posts.count.categories(addTypeahead('category'));
 
     /*
      * ACTIONS
