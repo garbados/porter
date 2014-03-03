@@ -84,7 +84,7 @@ angular
               var rows = [];
 
               res.forEach(function (row) {
-                if (row.doc.tags)
+                if (row.doc.tags) {
                   if (row.doc.tags.forEach) {
                     row.doc.tags.forEach(function (tag) {
                       rows.push(tag);
