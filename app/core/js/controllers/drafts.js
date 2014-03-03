@@ -13,10 +13,11 @@ angular
     Posts
     .search({
       published: false
-    }, function (err, res) {
+    }, function (err, rows) {
       if (err) throw err;
+      
       $scope.$apply(function () {
-        var posts = res.rows.map(function (row) {
+        var posts = rows.map(function (row) {
           return row.doc;
         });
         

@@ -13,15 +13,21 @@ angular
         console.trace(err);
       } else {
         $scope.$apply(function () {
-          $scope._posts = res;
           $scope._done = true;
+          $scope._posts = res.map(function (row) {
+            return row.doc;
+          });
         });
       }
     });
 
     $scope.search = function (querystring) {
       $scope.posts = $scope._posts.filter(function (post) {
-        return post.text.indexOf(querystring) > -1;
+        if (!post.text) {
+          return false;
+        } else if (post.text.indexOf(querystring) === -1) {
+          return false;
+        }
       });
     };
   }

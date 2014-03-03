@@ -41,11 +41,14 @@ angular
           if (err) {
             done(err);
           } else {
-            var results = res.rows.filter(function (row) {
+            var results = res.filter(function (row) {
               var should_keep = true;
               
               for (var key in query) {
-                if (String(query[key]).indexOf(row.doc[key]) === -1) {
+                if (!row.doc[key]) {
+                  should_keep = false;
+                  break;
+                } else if (String(query[key]).indexOf(row.doc[key]) === -1) {
                   should_keep = false;
                   break;
                 }
@@ -64,7 +67,7 @@ angular
             if (err) {
               done(err);
             } else {
-              var rows = res.rows.map(function (row) {
+              var rows = res.map(function (row) {
                 return row.doc.author;
               });
               var result = count(rows);
@@ -80,7 +83,7 @@ angular
             } else {
               var rows = [];
 
-              res.rows.forEach(function (row) {
+              res.forEach(function (row) {
                 if (row.doc.tags.forEach) {
                   row.doc.tags.forEach(function (tag) {
                     rows.push(tag);
@@ -99,7 +102,7 @@ angular
             if (err) {
               done(err);
             } else {
-              var rows = res.rows.map(function (row) {
+              var rows = res.map(function (row) {
                 return row.doc.category;
               });
               var result = count(rows);

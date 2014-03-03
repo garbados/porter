@@ -17,8 +17,8 @@ angular
     Posts
     .search({
       tags: $routeParams.tag
-    }, function (err, res) {
-      var posts = res.rows.map(function (row) {
+    }, function (err, rows) {
+      var posts = rows.map(function (row) {
         return row.doc;
       });
 

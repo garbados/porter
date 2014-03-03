@@ -4,8 +4,18 @@
       <a href="#/">Home</a>
     </li>
     <hr>
-    <li ng-repeat="schema in schemas">
-      <a ng-href="#/new/{{ schema }}">New {{ schema | singularize }}</a>
+    <li>
+      <a ng-href="#/new/post">New</a>
+    </li>
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li ng-repeat="schema in schemas">
+          <a ng-href="#/new/{{ schema }}">New {{ schema | singularize }}</a>
+        </li>
+      </ul>
     </li>
     <hr>
     <li>
@@ -21,12 +31,12 @@
       <a href="#" ng-click="clear()">Clear</a>
     </li>
   </ul>
-  <hr>
-  <div ng-repeat="category in categories | orderBy:'value':true ">
-    <a href="#/{{ category.key }}">@{{ category.key }} ({{ category.value }})</a>
+  <hr ng-show="categories.length">
+  <div ng-repeat="(category, count) in categories | orderBy:'value':true ">
+    <a href="#/{{ category }}">@{{ category }} ({{ count }})</a>
   </div>
-  <hr>
-  <div ng-repeat="tag in tags | orderBy:'value':true ">
-    <a href="#/tag/{{ tag.key }}">#{{ tag.key }} ({{ tag.value }})</a>
+  <hr ng-show="tags.length">
+  <div ng-repeat="(tag, count) in tags | orderBy:'value':true ">
+    <a href="#/tag/{{ tag }}">#{{ tag }} ({{ count }})</a>
   </div>
 </div>

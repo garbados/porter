@@ -13,10 +13,11 @@ angular
     Posts
     .search({
       category: $routeParams.category
-    }, function (err, res) {
+    }, function (err, rows) {
       if (err) throw err;
+      
       $scope.$apply(function () {
-        var docs = res.rows.map(function (row) {
+        var docs = rows.map(function (row) {
           return row.doc;
         });
 
