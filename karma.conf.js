@@ -73,7 +73,7 @@ module.exports = function(config) {
     browsers: [
         // 'Chrome', // because travis doesn't have it installed :/
         'Firefox', 
-        'PhantomJS'
+        // 'PhantomJS' // dependency issues apparently; TODO resolve them
     ],
 
 
