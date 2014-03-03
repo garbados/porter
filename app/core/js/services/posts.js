@@ -90,6 +90,11 @@ angular
                       rows.push(tag);
                     });
                   } else {
+                    // in older versions of porter, `tags` was a string
+                    // past-me made horrible choices
+                    // but we inherit the sins
+                    // of the jerks we used to be
+                    // something like that
                     row.doc.tags.split(',').map(function (tag) {
                       return tag.trim();
                     }).forEach(function (tag) {
