@@ -24,19 +24,19 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.4",
-    "angular-sanitize": "~1.2.4",
+    "angular": "~1.2.14",
+    "angular-sanitize": "~1.2.14",
     "angular-slugify": "~1.0.0",
-    "pouchdb": "~1.0.0",
+    "pouchdb": "~2.0.0",
     "showdown": "~0.3.1",
     "angular-bootstrap": "~0.10.0",
-    "async": "~0.2.5",
+    "async": "~0.2.10",
     "angular-route-segment": "~1.2.0",
-    "angular-route": "~1.2.12",
-    "bootstrap": "~3.1.0"
+    "angular-route": "~1.2.14",
+    "bootstrap": "~3.1.1"
   },
   "resolutions": {
-    "angular": "~1.2.4"
+    "angular": "~1.2.14"
   },
   "exportsOverride": {
     "showdown": {
