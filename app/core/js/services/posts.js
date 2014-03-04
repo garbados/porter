@@ -4,6 +4,24 @@ angular
   'Pouch', 'Post',
   function (Pouch, Post) {
 
+    function get (id, done) {
+      Pouch.get(id, function (err, res) {
+        if (err) {
+          done(err);
+        } else {
+          // handle posts from when tags was a string
+          // sins of the jerks we were
+          if (!res.tags.forEach) {
+            res.tags = res.tags.split(',').map(function (tag) {
+              return tag.trim();
+            });
+          }
+
+          done(null, res);
+        }
+      });
+    }
+
     function all (done) {
       Pouch.allDocs({
         include_docs: true
@@ -48,6 +66,7 @@ angular
     }
 
     return {
+      get: get,
       all: all,
       search: function (query, done) {
         all(function (err, res) {

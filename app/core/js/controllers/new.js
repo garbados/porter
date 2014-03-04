@@ -13,7 +13,7 @@ angular
 
     // get doc, if it exists
     if ($routeParams.id) {
-      Pouch.get($routeParams.id, function (err, res) {
+      Posts.get($routeParams.id, function (err, res) {
         if (err) {
           console.trace(err);
         } else {
