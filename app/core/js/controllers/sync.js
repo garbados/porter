@@ -18,6 +18,14 @@ angular
       }
     };
 
+    // default to syncing with the deploying DB
+    var url = location.protocol + '//' + location.host;
+    if (location.path) {
+      url = [url, location.path].join('/');
+    }
+    url = [url, '_rewrite', 'api'].join('/');
+    $scope.target = url;
+
     $scope.from = function (target) {
       if (!target) {
         $scope.error = "Target is required.";
