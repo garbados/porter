@@ -14,6 +14,14 @@ angular
         }
       } else {
         $scope.$apply(function () {
+          // handle posts from when tags was a string
+          // sins of the jerks we were
+          if (!res.tags.forEach) {
+            res.tags = res.tags.split(',').map(function (tag) {
+              return tag.trim();
+            });
+          }
+          
           $scope.post = res;
           $scope.schema = $scope.Schemas.get(res.type);
         });

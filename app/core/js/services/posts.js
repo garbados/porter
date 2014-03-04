@@ -13,6 +13,19 @@ angular
         } else {
           var results = res.rows.filter(function (row) {
             return row.doc.type !== undefined;
+          }).map(function (row) {
+            if (row.doc.tags && !row.doc.tags.forEach) {
+              // in older versions of porter, `tags` was a string
+              // past-me made horrible choices
+              // but we inherit the sins
+              // of the jerks we used to be
+              // something like that
+              row.doc.tags = row.doc.tags.split(',').map(function (tag) {
+                return tag.trim();
+              });
+            }
+
+            return row;
           });
 
           done(null, results);
@@ -84,23 +97,10 @@ angular
               var rows = [];
 
               res.forEach(function (row) {
-                if (row.doc.tags) {
-                  if (row.doc.tags.forEach) {
-                    row.doc.tags.forEach(function (tag) {
-                      rows.push(tag);
-                    });
-                  } else {
-                    // in older versions of porter, `tags` was a string
-                    // past-me made horrible choices
-                    // but we inherit the sins
-                    // of the jerks we used to be
-                    // something like that
-                    row.doc.tags.split(',').map(function (tag) {
-                      return tag.trim();
-                    }).forEach(function (tag) {
-                      rows.push(tag);
-                    });
-                  }
+                if (row.doc.tags && row.doc.tags.forEach) {
+                  row.doc.tags.forEach(function (tag) {
+                    rows.push(tag);
+                  });
                 }
               });
 

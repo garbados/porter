@@ -1,7 +1,11 @@
-<h1 ng-hide="_done">Loading...</h1>
-<div class="row" ng-show="_done">
+<div class="row">
   <div class="col-md-12">
-    <form>
+    <header>
+      <h1>Search</h1>
+    </header>
+
+    <h2 ng-hide="_done">Loading...</h1>
+    <form ng-show="_done">
       <div class="form-group">
         <label>Search</label>
         <input class="form-control" type="text" ng-model="querystring" ng-change="search(querystring)">
@@ -9,5 +13,6 @@
       <button class="btn btn-info" ng-click="search(querystring)">Search</button>
     </form>
   </div>
+
   <div ng-include="'list.html'"></div>
 </div>

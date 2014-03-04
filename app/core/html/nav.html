@@ -31,12 +31,12 @@
       <a href="#" ng-click="clear()">Clear</a>
     </li>
   </ul>
-  <hr ng-show="categories.length">
-  <div ng-repeat="(category, count) in categories | orderBy:'value':true ">
+  <div ng-repeat="(category, count) in categories">
+    <hr ng-show="$first">
     <a href="#/{{ category }}">@{{ category }} ({{ count }})</a>
   </div>
-  <hr ng-show="tags.length">
-  <div ng-repeat="(tag, count) in tags | orderBy:'value':true ">
+  <div ng-repeat="(tag, count) in tags">
+    <hr ng-show="$first">
     <a href="#/tag/{{ tag }}">#{{ tag }} ({{ count }})</a>
   </div>
 </div>

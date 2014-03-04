@@ -3,8 +3,6 @@ angular
 .controller('SyncCtrl', [
   '$scope', 'Pouch', '$location',
   function ($scope, Pouch, $location) {
-    var success = 'Great! Replication in progress...';
-
     var opts = {
       create_target: true,
       complete: function (err) {
@@ -24,7 +22,7 @@ angular
       if (!target) {
         $scope.error = "Target is required.";
       } else {
-        $scope.success = success;
+        $scope.success = true;
         Pouch.replicate.from(target, opts); 
       }
     };
@@ -33,7 +31,7 @@ angular
       if (!target) {
         $scope.error = "Target is required.";
       } else {
-        $scope.success = success;
+        $scope.success = true;
         Pouch.replicate.to(target, opts);
       }
     };
