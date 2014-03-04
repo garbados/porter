@@ -20,8 +20,8 @@ angular
 
     // default to syncing with the deploying DB
     var url = location.protocol + '//' + location.host;
-    if (location.path) {
-      url = [url, location.path].join('/');
+    if (location.pathname) {
+      url = [url, location.pathname].join('/');
     }
     url = [url, '_rewrite', 'api'].join('/');
     $scope.target = url;
