@@ -3,6 +3,24 @@ angular
 .config([
   'SchemasProvider',
   function (SchemasProvider) {
+    var languages = [
+      'CURL',
+      'Python',
+      'Ruby',
+      'Node.js',
+      'JavaScript',
+      'PHP',
+      'Java',
+      'Java (Android)',
+      'Objective-C'
+    ].map(function (language) {
+      return {
+        label: language,
+        type: 'textarea',
+        model: language.toLowerCase().replace(/\s/g, '')
+      };
+    });
+
     SchemasProvider.addSchema('documentation', {
       primary: 'title',
       fields: [
@@ -18,43 +36,7 @@ angular
           label: "Body",
           type: 'textarea',
           model: 'text'
-        },{
-          label:"CURL",
-          type:'textarea',
-          model:'curl'
-        }, {
-          label:"Python",
-          type:'textarea',
-          model:'python'
-        }, {
-          label:"Ruby",
-          type:'textarea',
-          model:'ruby'
-        }, {
-          label:"Node.js",
-          type:'textarea',
-          model:'nodejs'
-        }, {
-          label:"JavaScript",
-          type:'textarea',
-          model:'javascript'
-        }, {
-          label:"PHP",
-          type:'textarea',
-          model:'php'
-        }, {
-          label:"Java",
-          type:'textarea',
-          model:'java'
-        }, {
-          label:"Java (Android)",
-          type:'textarea',
-          model:'android'
-        }, {
-          label:"Objective-C",
-          type:'textarea',
-          model:'objective_c'
-        }, {
+        }].concat(languages).concat([{
           label: "Author",
           type: 'input',
           model: 'author'
@@ -67,7 +49,7 @@ angular
           type: 'input',
           model: 'tags'
         }
-      ]
+      ])
     });
   }
 ]);
