@@ -16,13 +16,11 @@ angular
     }, function (err, rows) {
       if (err) throw err;
       
-      $scope.$apply(function () {
-        var posts = rows.map(function (row) {
-          return row.doc;
-        });
-        
-        $scope.posts = posts;
+      var posts = rows.map(function (row) {
+        return row.doc;
       });
+      
+      $scope.posts = posts;
     });
   }
 ]);

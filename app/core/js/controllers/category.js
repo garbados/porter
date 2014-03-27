@@ -16,18 +16,16 @@ angular
     }, function (err, rows) {
       if (err) throw err;
       
-      $scope.$apply(function () {
-        var docs = rows.map(function (row) {
-          return row.doc;
-        });
-
-        if (docs.length) {
-          $scope.posts = docs; 
-        } else {
-          // backwards compatibility for top-level-pages
-          $location.path('/post/' + $routeParams.category);
-        }
+      var docs = rows.map(function (row) {
+        return row.doc;
       });
+
+      if (docs.length) {
+        $scope.posts = docs; 
+      } else {
+        // backwards compatibility for top-level-pages
+        $location.path('/post/' + $routeParams.category);
+      }
     });
   }
 ]);

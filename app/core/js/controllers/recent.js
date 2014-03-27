@@ -20,9 +20,7 @@ angular
         return row.doc;
       });
 
-      $scope.$apply(function () {
-        $scope.posts = posts;
-      });
+      $scope.posts = posts;
     });
   }
 ]);

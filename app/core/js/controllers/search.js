@@ -12,11 +12,9 @@ angular
       if (err) {
         console.trace(err);
       } else {
-        $scope.$apply(function () {
-          $scope._done = true;
-          $scope._posts = res.map(function (row) {
-            return row.doc;
-          });
+        $scope._done = true;
+        $scope._posts = res.map(function (row) {
+          return row.doc;
         });
       }
     });
@@ -29,11 +27,8 @@ angular
 
       Posts.search(query, function (err, res) {
         if (err) throw err;
-        $scope.$apply(function () {
-          console.log(res);
-          $scope.posts = res.map(function (row) {
-            return row.doc;
-          });
+        $scope.posts = res.map(function (row) {
+          return row.doc;
         });
       });
     };

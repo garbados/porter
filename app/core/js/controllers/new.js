@@ -1,10 +1,10 @@
 angular
 .module('controllers')
 .controller('NewCtrl', [
-  '$scope', 'Pouch', 'Posts',
+  '$scope', 'Posts',
   '$location', '$routeParams', 'Slug',
   'Schemas',
-  function ($scope, Pouch, Posts, $location, $routeParams, Slug, Schemas) {
+  function ($scope, Posts, $location, $routeParams, Slug, Schemas) {
 
     // get schema
     $scope.schema = Schemas.get($routeParams.type || 'post');
@@ -17,10 +17,8 @@ angular
         if (err) {
           console.trace(err);
         } else {
-          $scope.$apply(function () {
-            $scope.post = res;
-            $scope.schema = Schemas.get($scope.post.type);
-          });
+          $scope.post = res;
+          $scope.schema = Schemas.get($scope.post.type);
         }
       });
     }
@@ -44,9 +42,7 @@ angular
         if (err) {
           console.trace (err);
         } else {
-          $scope.$apply(function () {
-            $scope.typeahead[field] = res;
-          });
+          $scope.typeahead[field] = res;
         }
       };
     }
@@ -83,7 +79,7 @@ angular
     };
 
     $scope.delete = function (post) {
-      Pouch.remove(post, redirect('/'));
+      Posts.remove(post, redirect('/'));
     };
   }
 ]);

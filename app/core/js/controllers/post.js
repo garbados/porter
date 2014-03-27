@@ -13,10 +13,8 @@ angular
           console.trace(err); 
         }
       } else {
-        $scope.$apply(function () {
-          $scope.post = res;
-          $scope.schema = $scope.Schemas.get(res.type);
-        });
+        $scope.post = res;
+        $scope.schema = $scope.Schemas.get(res.type);
       }
     });
   }

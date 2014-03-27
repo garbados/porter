@@ -1,53 +1,64 @@
 angular
 .module('services')
 .factory('Posts', [
-  'Pouch', 'Post',
-  function (Pouch, Post) {
+  '_url', '$http', 'Post',
+  function (_url, $http, Post) {
 
     function get (id, done) {
-      Pouch.get(id, function (err, res) {
-        if (err) {
-          done(err);
-        } else {
-          // handle posts from when tags was a string
-          // sins of the jerks we were
-          if (!res.tags.forEach) {
-            res.tags = res.tags.split(',').map(function (tag) {
+      var url = [_url, encodeURIComponent(id)].join('/');
+      $http.get(url)
+      .error(done)
+      .success(function (res) {
+        // handle posts from when tags was a string
+        // sins of the jerks we were
+        if (!res.tags.forEach) {
+          res.tags = res.tags.split(',').map(function (tag) {
+            return tag.trim();
+          });
+        }
+
+        done(null, res);
+      });
+    }
+
+    function remove (post, done) {
+      var url = [_url, encodeURIComponent(post._id)].join('/');
+      $http.delete(url, {
+        params: {
+          rev: post._rev
+        }
+      })
+      .error(done)
+      .success(done.bind(null, null));
+    }
+
+    function all (done) {
+      var url = [_url, '_all_docs'].join('/');
+      $http.get(url, {
+        params: {
+          include_docs: true 
+        }
+      })
+      .error(done)
+      .success(function (res) {
+        var results = res.rows.filter(function (row) {
+          return row.doc.type !== undefined;
+        }).map(function (row) {
+          if (row.doc.tags && !row.doc.tags.forEach) {
+            // in older versions of porter, `tags` was a string
+            // past-me made horrible choices
+            // but we inherit the sins
+            // of the jerks we used to be
+            // something like that
+            row.doc.tags = row.doc.tags.split(',').map(function (tag) {
               return tag.trim();
             });
           }
 
-          done(null, res);
-        }
-      });
-    }
+          return row;
+        });
 
-    function all (done) {
-      Pouch.allDocs({
-        include_docs: true
-      }, function (err, res) {
-        if (err) {
-          done(err);
-        } else {
-          var results = res.rows.filter(function (row) {
-            return row.doc.type !== undefined;
-          }).map(function (row) {
-            if (row.doc.tags && !row.doc.tags.forEach) {
-              // in older versions of porter, `tags` was a string
-              // past-me made horrible choices
-              // but we inherit the sins
-              // of the jerks we used to be
-              // something like that
-              row.doc.tags = row.doc.tags.split(',').map(function (tag) {
-                return tag.trim();
-              });
-            }
-
-            return row;
-          });
-
-          done(null, results);
-        }
+        done(null, results);
       });
     }
 
@@ -83,8 +94,6 @@ angular
                 if (row_key && row_key.indexOf(query_key) !== -1) {
                   should_keep = true;
                   break;
-                } else {
-                  console.log(query_key, row_key);
                 }
               }
 

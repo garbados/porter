@@ -1,8 +1,8 @@
 angular
 .module('services')
 .factory('Post', [
-  'Pouch',
-  function (Pouch) {
+  '_url', '$http',
+  function (_url, $http) {
     function update_timestamps (post) {
       if (post.created_at === undefined) {
         post.created_at = new Date().getTime();
@@ -31,26 +31,26 @@ angular
     function modify_id (post, done) {
       if (post._id) {
         if (post.id !== post._id) {
-          Pouch.get(post._id, function (err, res) {
-            if (err) {
-              if (err.status === 404) {
-                post._id = post.id;
-                delete post.id;
-                done(null, post);
-              } else {
-                done(err);
-              }
+          var url = [_url, post._id].join('/');
+
+          $http.get(url)
+          .error(function (err) {
+            if (err.status === 404) {
+              post._id = post.id;
+              delete post.id;
+              done(null, post);
             } else {
-              Pouch.remove(post, function (err) {
-                if (err) {
-                  done(err);
-                } else {
-                  post._id = post.id;
-                  delete post.id;
-                  done(null, post);
-                }
-              });
+              done(err);
             }
+          })
+          .success(function (res) {
+            $http.delete(url)
+            .error(done)
+            .success(function (res) {
+              post._id = post.id;
+              delete post.id;
+              done(null, post);
+            });
           });
         } else {
           done(null, post);
@@ -69,7 +69,12 @@ angular
         if (err) {
           done(err);
         } else {
-          Pouch.post(post, done); 
+          var url = [_url, post._id].join('/');
+          $http.post(url, {
+            data: post
+          })
+          .error(done)
+          .success(done.bind(null, null));
         }
       });
 

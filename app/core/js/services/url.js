@@ -1,11 +1,16 @@
 angular
 .module('services')
-.factory('Pouch', function () {
+.factory('_url', function () {
   var url = location.protocol + '//' + location.host;
   if (location.pathname) {
     url += location.pathname;
   }
-  url = [url, 'api'].join('/');
   
-  return new PouchDB(url);
+  if (url[url.length - 1] === '/') {
+    url += 'api'; 
+  } else {
+    url += '/api';
+  }
+  
+  return url;
 });

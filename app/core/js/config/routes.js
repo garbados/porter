@@ -27,10 +27,6 @@ angular
       controller: 'NewCtrl',
       templateUrl: 'new.html'
     })
-    .when('/sync', {
-      controller: 'SyncCtrl',
-      templateUrl: 'sync.html'
-    })
     .when('/tag/:tag/', {
       controller: 'TagCtrl',
       templateUrl: 'list.html'

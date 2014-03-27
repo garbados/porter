@@ -5,10 +5,9 @@
   "authors": [
     "Max Thayer <garbados@gmail.com>"
   ],
-  "description": "CMS Backend using PouchDB and AngularJS",
+  "description": "CMS Backend using AngularJS",
   "keywords": [
     "cms",
-    "pouchdb",
     "couchdb",
     "cloudant",
     "angular",
@@ -27,7 +26,6 @@
     "angular": "~1.2.14",
     "angular-sanitize": "~1.2.14",
     "angular-slugify": "~1.0.0",
-    "pouchdb": "~2.0.0",
     "showdown": "~0.3.1",
     "angular-bootstrap": "~0.10.0",
     "async": "~0.2.10",

@@ -19,9 +19,7 @@ angular
       if (err) {
         console.trace(err);
       } else {
-        $scope.$apply(function () {
-          $scope.tags = tags;
-        });
+        $scope.tags = tags;
       }
     });
 
@@ -31,9 +29,7 @@ angular
       if (err) {
         console.trace(err);
       } else {
-        $scope.$apply(function () {
-          $scope.categories = categories;
-        }); 
+        $scope.categories = categories;
       }
     });
   }
