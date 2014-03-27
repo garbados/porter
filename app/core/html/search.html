@@ -5,12 +5,12 @@
     </header>
 
     <h2 ng-hide="_done">Loading...</h1>
-    <form ng-show="_done">
+    <form ng-show="_done" ng-submit="search(querystring)">
       <div class="form-group">
         <label>Search</label>
-        <input class="form-control" type="text" ng-model="querystring" ng-change="search(querystring)">
+        <input class="form-control" type="text" ng-model="querystring">
       </div>
-      <button class="btn btn-info" ng-click="search(querystring)">Search</button>
+      <input class="btn btn-info" type="submit" value="Search">
     </form>
   </div>
 

@@ -74,15 +74,17 @@ angular
             done(err);
           } else {
             var results = res.filter(function (row) {
-              var should_keep = true;
+              var should_keep = false;
               
               for (var key in query) {
-                if (!row.doc[key]) {
-                  should_keep = false;
+                var query_key = String(query[key]).toLowerCase();
+                var row_key = String(row.doc[key]).toLowerCase();
+
+                if (row_key && row_key.indexOf(query_key) !== -1) {
+                  should_keep = true;
                   break;
-                } else if (String(query[key]).indexOf(row.doc[key]) === -1) {
-                  should_keep = false;
-                  break;
+                } else {
+                  console.log(query_key, row_key);
                 }
               }
 
@@ -136,6 +138,8 @@ angular
             } else {
               var rows = res.map(function (row) {
                 return row.doc.category;
+              }).filter(function (category) {
+                return category;
               });
               var result = count(rows);
 

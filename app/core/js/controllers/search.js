@@ -22,12 +22,19 @@ angular
     });
 
     $scope.search = function (querystring) {
-      $scope.posts = $scope._posts.filter(function (post) {
-        if (!post.text) {
-          return false;
-        } else if (post.text.indexOf(querystring) === -1) {
-          return false;
-        }
+      var query = {
+        text: querystring,
+        title: querystring
+      };
+
+      Posts.search(query, function (err, res) {
+        if (err) throw err;
+        $scope.$apply(function () {
+          console.log(res);
+          $scope.posts = res.map(function (row) {
+            return row.doc;
+          });
+        });
       });
     };
   }

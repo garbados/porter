@@ -39,11 +39,11 @@ angular
       controller: 'CategoryCtrl',
       templateUrl: 'list.html'
     })
-    .when('/:category/:id', {
+    .when('/:category/:id*', {
       controller: 'PostCtrl',
       templateUrl: 'post.html'
     })
-    .when('/:category/:id/edit', {
+    .when('/:category/:id*/edit', {
       controller: 'NewCtrl',
       templateUrl: 'new.html'
     })
