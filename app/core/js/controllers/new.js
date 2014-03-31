@@ -59,9 +59,7 @@ angular
         if (err) {
           console.trace(err);
         } else {
-          $scope.$apply(function () {
-            $location.path(to);
-          });
+          $location.path(to);
         }
       };
     }

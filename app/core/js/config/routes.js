@@ -31,6 +31,10 @@ angular
       controller: 'TagCtrl',
       templateUrl: 'list.html'
     })
+    .when('/edit/:id*', {
+      controller: 'NewCtrl',
+      templateUrl: 'new.html'
+    })
     .when('/:category', {
       controller: 'CategoryCtrl',
       templateUrl: 'list.html'
@@ -38,10 +42,6 @@ angular
     .when('/:category/:id*', {
       controller: 'PostCtrl',
       templateUrl: 'post.html'
-    })
-    .when('/:category/:id*/edit', {
-      controller: 'NewCtrl',
-      templateUrl: 'new.html'
     })
     .otherwise({
       redirectTo: '/404'

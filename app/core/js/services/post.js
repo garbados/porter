@@ -69,9 +69,10 @@ angular
         if (err) {
           done(err);
         } else {
-          var url = [_url, post._id].join('/');
-          $http.post(url, {
-            data: post
+          var id = encodeURIComponent(post._id);
+          var url = [_url, id].join('/');
+          $http.put(url, JSON.stringify(post), {
+            "Content-Type": "multipart/form-data"
           })
           .error(done)
           .success(done.bind(null, null));
