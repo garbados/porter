@@ -52,7 +52,7 @@ By default, Porter tries to deploy to
 
 After deploying, the resultant app will live at
 
-    DATABASE/_design/app/_rewrite
+    DATABASE/_design/porter/_rewrite
 
 ## Objects
 
